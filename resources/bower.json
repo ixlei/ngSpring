@@ -1,0 +1,25 @@
+{
+  "name": "resources",
+  "version": "1.0.0",
+  "authors": [
+    "ixlei <1099461262@qq.com>"
+  ],
+  "description": "angular",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "angular"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.5"
+  }
+}

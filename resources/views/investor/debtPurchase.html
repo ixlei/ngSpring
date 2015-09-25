@@ -1,0 +1,70 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/release_debt_purchase.css" />
+<div id="main_body_m">
+    <div id="swap">
+        <div id="list">
+            <div id="list-title">
+                <span>意向发布</span>
+            </div>
+            <div ng-include="'/views/investor/release-debt-left-nav.html'" scope="" onload=""></div>
+        </div>
+        <div class="main_body">
+            <div id="main_first">
+                <div class="body_title">
+                    基本信息
+                </div>
+                <hr>
+                <get-release-directive username="{{data.username}}" company-address="{{data.companyAddress}}" investor-address="{{data.investorAddress}}" legal-representative="{{data.legalRepresentative}}" invest-filed="{{data.investFiled}}"></get-release-directive>
+                <div class="input_text" ng-controller="debtPostCtrl">
+                    <form class="input_form" name="form">
+                        <label>投资金额：</label>
+                        <input class="input" type="text" name="investmentMin" ng-model="debt.investmentMin" />
+                        <label>-</label>
+                        <input class="input" type="text" name="investmentMax" ng-model="debt.investmentMax" />
+                        <label>万</label>
+                        <br/>
+                        <label>投资年限：</label>
+                        <input class="input" type="text" name="investmentTimeOut" ng-model="debt.investmentTimeOut" />
+                        <label> 年 </label>
+                        <div class="main_first">
+                            <div class="body_title">
+                                更多信息
+                            </div>
+                            <hr>
+                            <div class="input_text">
+                                <div class="input_form">
+                                    <label>最低回报要求:（年利率）</label>
+                                    <input class="input" type="text" name="returnRateMin" ng-model="debt.returnRateMin" />
+                                    <label>-</label>
+                                    <input class="input" type="text" name="returnRateMax" ng-model="debt.returnRateMax" />
+                                    <label>%</label>
+                                </div>
+                                <div>
+                                    <label>风险控制要求:</label>
+                                    <select name="riskControllRequest" ng-model="debt.riskControllRequest">
+                                        <option value="看书">看书</option>
+                                        <option value="抵押" selected="selectd">抵押</option>
+                                        <option value="运动">运动</option>
+                                        <option value="购物">购物</option>
+                                    </select>
+                                </div>
+                                <div class="input_form">
+                                    <label>要求提供文件:</label>
+                                    <select name="fileProviderRequest" ng-model="debt.fileProviderRequest">
+                                        <option value="是">是</option>
+                                        <option value="否">否</option>
+                                    </select>
+                                    <br/>
+                                    <div class="input_textarea"> 投资要求概述: </div>
+                                    <textarea rows="7" cols="60" name="investmentRequest" ng-model="debt.investmentRequest"></textarea>
+                                </div>
+                            </div>
+                            <div id="button">
+                                <input type="button" value="发布" id="btn" debt-post-directive/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

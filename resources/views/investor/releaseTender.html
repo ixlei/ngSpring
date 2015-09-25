@@ -1,0 +1,74 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/release_tender_offers.css">
+<div id="main_body_m">
+    <div id="swap">
+        <div id="list">
+            <div id="list-title">
+                <span>意向发布</span>
+            </div>
+            <div ng-include="'/views/investor/release-debt-left-nav.html'" scope="" onload=""></div>
+        </div>
+        <div class="main_body">
+            <div id="main_first">
+                <div class="body_title">
+                    基本信息
+                </div>
+                <hr>
+                <get-release-directive username="{{data.username}}" company-address="{{data.companyAddress}}" investor-address="{{data.investorAddress}}" legal-representative="{{data.legalRepresentative}}" invest-filed="{{data.investFiled}}"></get-release-directive>
+                <div class="input_text" ng-controller="postReleaseCtrl">
+                    <form class="input_form" method="post" name="form">
+                        <label>投资金额：</label>
+                        <input class="input" type="text" name="investmentMin" ng-model="release.investmentMin" />
+                        <label>-</label>
+                        <input class="input" type="text" name="investmentMax" ng-model="release.investmentMax" />
+                        <label>万</label>
+                        <br/>
+                        <label>投资年限：</label>
+                        <input class="input" type="text" name="investmentTimeOut" ng-model="release.investmentTimeOut" />
+                        <label> &nbsp;年 </label>
+                        <br/>
+                        <div class="main_first">
+                            <div class="body_title">
+                                更多信息
+                            </div>
+                            <hr>
+                            <div class="input_text">
+                                <div class="input_form">
+                                    <label>参股比例:</label>
+                                    <input class="input" type="text" name="investmentProportionMin" ng-model="
+                                    release.investmentProportionMin" />
+                                    <label>-</label>
+                                    <input class="input" type="text" name="investmentProportionMax" ng-model="
+                                    release.investmentProportionMax" />
+                                    <label>&nbsp;%</label>
+                                </div>
+                                <div>
+                                    <label>投资阶段:</label>
+                                    <select name="investmentStage" ng-model="release.investmentStage">
+                                        <option value="看书">看书</option>
+                                        <option value="旅游">种子</option>
+                                        <option value="运动">运动</option>
+                                        <option value="购物">购物</option>
+                                    </select>
+                                </div>
+                                <div class="input_form">
+                                    <label>要求提供文件:</label>
+                                    <select name="fileProvideRequest" ng-model="release.fileProvideRequest">
+                                        <option value="是">是</option>
+                                        <option value="否">否</option>
+                                    </select>
+                                    <br/>
+                                    <div class="input_textarea"> 投资要求概述: </div>
+                                    <textarea rows="7" cols="60" name="investmentRequest" ng-model="release.investmentRequest"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="button">
+                            <input type="button" value="发布" id="btn" 
+                            post-release-directive/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

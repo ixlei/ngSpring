@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html ng-app="investorApp">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+    <script type="text/javascript" src="/bower_components/angular-route/angular-route.min.js"></script>
+    <script type="text/javascript" src="/scripts/investorApp.js"></script>
+    <script type="text/javascript" src="/scripts/services/app.service.js"></script>
+    <script type="text/javascript" src="/scripts/controller/app.controller.investor.js"></script>
+    <script type="text/javascript" src="/scripts/directive/app.directive.investor.js"></script>
+    <script type="text/javascript" src="/scripts/services/app.service.investor.js"></script>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/stylesheets/invest-header.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/customer-footer.css">
+    <title>嘉投易融</title>
+</head>
+
+<body ng-controller="mainController">
+    <div id="header">
+        <div id="header-nav">
+            <div id="nav-logo">
+                <span>
+             <img src="/images/logo-last.png" alt="" id="logo"> 
+          </span>
+            </div>
+            <div id="nav-list">
+                <ul>
+                    <li>
+                        <a href="investor.html#/index" title="">
+                            <span ng-class="{'nav-item': true, active: active.i0}">首页
+                            </span>
+                        </a>
+                    </li>
+                    <li id="finance">
+                        <a href="investor.html#/investModel" title="">
+                            <span ng-class="{'nav-item': true, active: active.i1}">投资板块</span>
+                        </a>
+                        <div id="finance-subnav">
+                            <ul>
+                                <li>
+                                    <a href="investor.html#/investModel" title=""> <span>撮合配对</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="investor.html#/releaseTender" title=""> <span>意向发布</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="investor.html#/investorChat" title=""> <span>业务洽谈</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="investor.html#/appliedInvest" title="">
+                                        <span>电子签约</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="investor.html#/infoCenter" title="">
+                            <span ng-class="{'nav-item': true, active: ctive.i2}">信息披露</span>
+                        </a>
+                    </li>
+                    <li id="service">
+                        <a href="investor.html#/investSituation" title="">
+                            <span ng-class="{'nav-item': true, active: ctive.i3}">资产管理</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="iciti">
+                <ul id="i-column">
+                    <li id="user-photo"><span>
+                 <a href="_target" title=""><img src="/images/user.png" alt="" /></a>
+                    </span>
+                    </li>
+                    <li id="go">
+                        <span id="text">&nbsp;我的账号<img src="/images/back-bottom.png"></span>
+                        <ul>
+                            <li>
+                                <a href="investor.html#/ifollow" title=""> <span>我关注的</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="investor.html#/inews" title=""> <span>我的消息</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="investor.html#/resourceAsset" title=""> <span>资料管理</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" title="" logout-directive> <span>退出</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="customer" ng-view>
+    </div>
+    <div id="footer">
+        <div id="foot-list"></div>
+    </div>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/customer-index.css">
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/finacing-publish.css">
+<div class="wrap">
+    <div ng-include="'/views/company/finance-publish-sidenav.html'" scope="" onload="" class="nav"></div>
+    <div class="main">
+        <form method="post" name="form">
+            <div class="basic_info">
+                <p class="tit">基本信息</p>
+                <div class="left fl">
+                    <p>公司名称：<span>{{publish.companyName}}</span></p>
+                    <p>公司注册时间：<span>{{publish.createTime }}</span></p>
+                    <p>产品类型：<span>私募债</span></p>
+                </div>
+                <div class="right fr">
+                    <p>公司注册地区：<span>{{publish.registerAddress }}</span></p>
+                    <p>公司注册资本：<span>{{publish.registerCapital }}</span></p>
+                    <p>所属行业：<span>{{publish.workField }}</span></p>
+                </div>
+                <div class="buttom">
+                    <p>
+                        发行金额：
+                        <input type="text" name="publishMoneyMin" ng-model="pub.publishMoneyMin"> —
+                        <input type="text" name="publishMoneyMax" ng-model="pub.publishMoneyMax"> 万
+                    </p>
+                    <p>
+                        <label>发行年限：</label>
+                        <input type="text" id="year" name="publishFixedYesrs" ng-model="pub.publishFixedYesrs"> 年
+                    </p>
+                    <p>
+                        <label for="text">发行完成:</label>
+                        <textarea id="textarea" cols=50 rows=6 name="publishFinsh" ng-model="pub.publishFinsh">
+                        </textarea>
+                    </p>
+                </div>
+            </div>
+            <div class="more_info">
+                <p class="tit">更多信息</p>
+                <div class="left fl">
+                    <p>
+                        资金方占股比例：
+                        <input class="por" type="text" name="occupyPercentMin" ng-model="pub.occupyPercentMin" /> —
+                        <input class="por" type="text" name="occupyPercentMax" ng-model="pub.occupyPercentMax" /> %
+                    </p>
+                    <p>
+                        投资退出方式：
+                        <input class="exit" type="text" name="exitWay" ng-model="pub.exitWay" />
+                    </p>
+                    <p>
+                        项目所处阶段:
+                        <input class="stage" type="text" name="currentStage" nng-model="pub.currentStage">
+                    </p>
+                    <p>
+                        最短退出年限:
+                        <input class="short" type="text" name="exitMinTime" ng-model="pub.exitMinTime" />
+                    </p>
+                    <p>
+                        担保方:
+                        <input class="ensure" type="text" name="bondsman" ng-model="pub.bondsman" />
+                    </p>
+                </div>
+                <div class="right right1 fl">
+                    <p>
+                        企业当前净资产:
+                        <input class="pro" type="text" name="netAsset" ng-model="pub.netAsset" /> 万
+                    </p>
+                    <p>
+                        去年营业额：
+                        <input class="trunover" type="text" name="turnover" ng-model="pub.turnover"> 万
+                    </p>
+                    <p>
+                        公司净利润：
+                        <input class="profits" type="text" name="netProfit" ng-model="pub.netProfit"> 万
+                    </p>
+                    <p>
+                        投资门槛：
+                        <input type="text" class="threshold" name="investmentMinRequest" ng-model="pub.investmentMinRequest"> 万
+                    </p>
+                    <p>
+                        最低追加资金:
+                        <input type="text" class="add" name="minAddto" ng-model="pub.minAdd"> 万
+                    </p>
+                </div>
+            </div>
+            <input pub-directive class="submit" type="button" value="发布" id="btn" />
+        </form>
+    </div>
+</div>

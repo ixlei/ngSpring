@@ -1,0 +1,96 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/invest-chat.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/chat-fonts.css">
+<div id="main">
+    <div id="content">
+        <div id="first-galance">
+            <div id="chat-title">
+                <div data-uid="${session}" id="title">
+                    <span>
+                            <a href="" title="">${companyname }，欢迎您进行业务洽谈</a>
+                        </span>
+                </div>
+                <div id="show-hidden">
+                    <span> 
+                            <a href="javascript:void(0)" title="">隐藏业务洽谈信息</a>
+                        </span>
+                </div>
+            </div>
+            <div id="to-list">
+                <ul>
+                    <li>
+                        <c:forEach var="friendList" items="${friendList }">
+                            <span class="to-one">
+                                <span class="name"><c:out value="${friendList.username }"></c:out> </span>
+                            <span class="connect-btn">
+                                    <a href="javascript:void(0)" data-form="<c:out value="${ friendList.email}"></c:out>" data-nickname="<c:out value="${friendList.username }"></c:out>" >联系</a>
+                                </span>
+                            </span>
+                        </c:forEach>
+                    </li>
+                    <li>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="chat-area">
+            <div id="left-nav">
+                <div id="current-to">
+                    <span>当前联系人</span>
+                </div>
+                <div id="current-list">
+                    <div id="to">
+                        <ul id="list-show">
+                        </ul>
+                    </div>
+                    <div id="historty">
+                        <span>
+                                <a href="/springmvc/company/communicationHistory" title="">查看历史消息</a>
+                            </span>
+                    </div>
+                </div>
+            </div>
+            <div id="right-nav">
+                <div id="sub-nav">
+                    <ul>
+                        <li>
+                            <span>
+                                    <a href="#" title="">修订合同</a>
+                                </span>
+                        </li>
+                        <li>
+                            <span>
+                                    <a href="/springmvc/company/modifyContract" title="">查看合同</a>
+                                </span>
+                        </li>
+                        <li>
+                            <span id="upload">
+                                    <input type="file" name="" />
+                                    <a href="javascript:void(0);" title="">上传合同</a>
+                                </span>
+                        </li>
+                    </ul>
+                </div>
+                <div id="ichat">
+                    <div class="msg-window">
+                        <div class="show-msg" data-form="">
+                            <ul id="msg-list">
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="send-msg">
+                        <div id="input">
+                            <input type="text" id="send" name="msg">
+                        </div>
+                        <div id="send">
+                            <span id="send-btn" class="icon-send-btn">
+                                </span>
+                            <span id="fj" class="icon-fj">
+
+                                </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

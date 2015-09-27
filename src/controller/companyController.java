@@ -27,7 +27,6 @@ import dao.companyuserDao;
 import dao.investorDao;
 import dao.privateDebtDao;
 import dao.privateEquityDao;
-import webSocket.webSocketServer;
 
 @Controller
 @RequestMapping("/company")
@@ -44,6 +43,7 @@ public class companyController {
 
 	private privateDebtDao privateDebtCus = (privateDebtDao) context
 			.getBean("privateDebt");
+	
 	private investorDao investorD = (investorDao) context.getBean("investor");
 
 	@RequestMapping({ "/", "/index" })
@@ -113,16 +113,26 @@ public class companyController {
 	}
 
 	@RequestMapping(value = "/financepublish", method = RequestMethod.GET)
-	public String getpublish(HttpSession session, Map<String, Object> model) {
+	@ResponseBody
+	public Object getpublish(HttpSession session) {
 		String sessionId = (String) session.getAttribute("citiuser");
 		String email = sessionId.split("=")[1];
-		companyuser user = customerDao.getCompanyUserForPrivateEquity(email);
+		Map<String, Object> model = new HashMap<String, Object>();
+		companyuser user;
+		try {
+			user =  customerDao.getCompanyUserForPrivateEquity(email);
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.put("error", "error");
+			return model;
+		}
+		
 		model.put("companyName", user.getCompanyName());
 		model.put("registerAddress", user.getRegisterAddress());
 		model.put("createTime", user.getCreateTime());
 		model.put("registerCapital", user.getRegisterCapital());
 		model.put("workField", user.getWorkField());
-		return "company/finacing-publish";
+		return model;
 	}
 
 	@ResponseBody
@@ -274,16 +284,26 @@ public class companyController {
 	}
 
 	@RequestMapping(value = "/raisedbonds", method = RequestMethod.GET)
-	public String getRaisedBonds(HttpSession session, Map<String, Object> model) {
+	@ResponseBody
+	public Object getRaisedBonds(HttpSession session) {
+		Map<String, Object> model = new HashMap<String, Object>();
 		String sessionId = (String) session.getAttribute("citiuser");
 		String email = sessionId.split("=")[1];
-		companyuser user = customerDao.getCompanyUserForPrivateEquity(email);
+		companyuser user;
+		try {
+			user = customerDao.getCompanyUserForPrivateEquity(email);
+		} catch(Exception e) {
+			e.printStackTrace();
+			model.put("error", "error");
+			return model;
+		}
+		 
 		model.put("companyName", user.getCompanyName());
 		model.put("registerAddress", user.getRegisterAddress());
 		model.put("createTime", user.getCreateTime());
 		model.put("registerCapital", user.getRegisterCapital());
 		model.put("workField", user.getWorkField());
-		return "company/privately-raised-bonds";
+		return model;
 	}
 
 	@ResponseBody
@@ -426,31 +446,7 @@ public class companyController {
 		return "company/finished-reservation";
 	}
 
-	public webSocketServer getWebSocketServer() {
-		return new webSocketServer();
-	}
 	
-	@ResponseBody
-	@RequestMapping(value = "/chatMsg", method = RequestMethod.POST)
-	public Object getUnReadMessage(HttpServletRequest req) throws IOException {
-		Map<String, String> map = new HashMap<String, String>();
-		String toEmail = req.getParameter("to");
-		String data = req.getParameter("data");
-		if(data.equals("")) {
-			map.put("res", "");
-			return map;
-		}
-		try {
-			getWebSocketServer().sendMessageToUSer(toEmail,
-					new TextMessage(data));
-		} catch(Exception e) {
-			e.printStackTrace();
-			map.put("res", "error");
-		}
-		
-		map.put("connect", "success");
-		return map;
-	}
 
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
@@ -472,4 +468,26 @@ public class companyController {
 	public String getIsourceEdit() {
 		return "company/sourceEdit";
 	}
+	
+	@ResponseBody
+	@RequestMapping("/logined")
+	public Object logined(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		String id = (String)session.getAttribute("citiuser");
+		if(id == null) {
+			map.put("logined", 0);
+			return map;
+		}
+		
+		String prefix = id.split("=")[0];
+		if(prefix.equals("cid")) {
+			map.put("logined", 1);
+			return map;
+		}
+		
+		map.put("logined", 0);
+		return map;
+	}
+
 }

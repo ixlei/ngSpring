@@ -41,9 +41,18 @@ public class customerController {
 			.getBean("companyuser");
 
 	@RequestMapping({ "/", "/index" })
-	public String showIndex(Map<String, Integer> model) {
+	@ResponseBody
+	public Object showIndex(Map<String, Integer> model, 
+			HttpSession session, 
+			HttpServletResponse res) {
 		model.put("flag", 0);
-		return "customer/customer-index";
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("flag", 0);
+		map.put("countUP", 6278);
+		res.setHeader("Access-Control-Allow-Credential", "true");
+		System.out.println(session.getAttribute("citiuser"));
+		return map;
+		
 	}
 
 	@RequestMapping("/finance")
@@ -101,48 +110,91 @@ public class customerController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login() {
-		return "customer/login";
+	@ResponseBody
+	public Object login() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("d", "");
+		return map;
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String postLogin(HttpServletRequest req, HttpSession session) {
+	@ResponseBody
+	public Object postLogin(HttpServletRequest req, 
+			HttpSession session,
+			HttpServletResponse res) {
+		res.setHeader("Access-Control-Allow-Credential", "true");
+		Map<String, Object> map = new HashMap<String, Object>();
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
-		if (username == "") {
-			return "redirect:/customer/login/ue";
+		if (username.equals("")) {
+			map.put("flag", 0);
+			map.put("reaseon", "用户名不能为空");
+			return map;
 		}
 
-		if (password == "") {
-			return "redirect:/customer/login/pe";
+		if (password.equals("")) {
+			map.put("flag", 0);
+			map.put("reaseon", "密码不能为空");
+			return map;
 		}
 
-		if (req.getParameter("logintype").equals("投资者")) {
-			Investor checkInvestorUser = newuser.getInvestorByEmail(username);
+		if (req.getParameter("logintype").equals("2")) {
+			Investor checkInvestorUser;
+			try {
+				checkInvestorUser = newuser.getInvestorByEmail(username);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				map.put("flag", 0);
+				map.put("reaseon", "服务错误，稍后再试");
+				return map;
+			}
+
 			if (checkInvestorUser == null) {
-				return "redirect:/customer/login/ee";
+				map.put("flag", 0);
+				map.put("reaseon", "此用户不存在");
+				return map;
 			}
 
 			if (checkInvestorUser.getPassword().equals(password)) {
 				session.setAttribute("citiuser", "iid=" + username);
-				return "redirect:/investor/index";
+				System.out.println(session.getAttribute("citiuser"));
+				map.put("flag", 1);
+				return map;
 			}
 
-			return "redirect:/customer/login/alle";
+			map.put("flag", 0);
+			map.put("reaseon", "密码或用户名错误");
+			return map;
 
 		} else {
-			companyuser checkCompanyUser = newCompanyUser
-					.getCompanyUserByEmail(username);
+			companyuser checkCompanyUser;
+
+			try {
+				checkCompanyUser = newCompanyUser
+						.getCompanyUserByEmail(username);
+			} catch (Exception e) {
+				e.printStackTrace();
+				map.put("flag", 0);
+				map.put("reaseon", "服务错误，稍后再试");
+				return map;
+			}
+
 			if (checkCompanyUser == null) {
-				return "redirect:/customer/index/ee";
+				map.put("flag", 0);
+				map.put("reaseon", "此用户不存在");
+				return map;
 			}
 
 			if (checkCompanyUser.getPassword().equals(password)) {
 				session.setAttribute("citiuser", "cid=" + username);
-				return "redirect:/company/index";
+				map.put("flag", 1);
+				return map;
 			}
 
-			return "redirect:/customer/login/alle";
+			map.put("flag", 0);
+			map.put("reaseon", "密码或用户名错误");
+			return map;
 		}
 	}
 
@@ -173,19 +225,29 @@ public class customerController {
 	}
 
 	@RequestMapping(value = "/reg", method = RequestMethod.POST)
-	public String postReg(HttpServletRequest req, HttpSession session) {
-
+	@ResponseBody
+	public Object postReg(HttpServletRequest req, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		String userType = req.getParameter("type");
 
-		if (userType.equals("投资者")) {
+		if (userType.equals("2")) {
 			Investor newInvestor = new Investor();
 			newInvestor.setEmail(req.getParameter("email"));
 			newInvestor.setPassword(req.getParameter("password"));
 			newInvestor.setUsername(req.getParameter("username"));
 			newInvestor.setIdCard(req.getParameter("IdCard"));
-			newuser.insert(newInvestor);
+
+			try {
+				newuser.insert(newInvestor);
+			} catch (Exception e) {
+				e.printStackTrace();
+				map.put("res", "failure");
+				return map;
+			}
+			map.put("res", "success");
+			map.put("type", "2");
 			session.setAttribute("citiuser", "iid=" + req.getParameter("email"));
-			return "customer/investor-nextstep-reg";
+			return map;
 
 		} else {
 			companyuser newUser = new companyuser();
@@ -193,9 +255,18 @@ public class customerController {
 			newUser.setPassword(req.getParameter("password"));
 			newUser.setCompanyName(req.getParameter("companyName"));
 			newUser.setCode(req.getParameter("code"));
-			newCompanyUser.insert(newUser);
+			try {
+				newCompanyUser.insert(newUser);
+			} catch (Exception e) {
+				e.printStackTrace();
+				map.put("res", "failure");
+				return map;
+			}
+
+			map.put("res", "success");
+			map.put("type", "1");
 			session.setAttribute("citiuser", "cid=" + req.getParameter("email"));
-			return "customer/complete-company-reg";
+			return map;
 		}
 
 	}
@@ -210,7 +281,6 @@ public class customerController {
 		} else {
 			map.put("check", "invalid");
 		}
-
 		return map;
 	}
 
@@ -272,7 +342,7 @@ public class customerController {
 	@RequestMapping(value = "/investorNextStep", method = RequestMethod.POST)
 	public String investorNextStep(HttpServletRequest req, HttpSession session,
 			@RequestParam(value = "image", required = false) MultipartFile image) {
-		
+
 		String sessionChar = (String) session.getAttribute("citiuser");
 		String[] splitSession = sessionChar.split("=");
 		if (sessionChar == null || !splitSession[0].equals("iid")) {
@@ -299,8 +369,8 @@ public class customerController {
 		finshInvestor.setInvestStage(req.getParameter("investStage"));
 		finshInvestor.setHeadquartersAddress(req
 				.getParameter("headquartersAddress"));
-		
-		if(image != null && !image.isEmpty()) {
+
+		if (image != null && !image.isEmpty()) {
 			String originalImageName = image.getOriginalFilename();
 			Date now = new Date();
 			int indexDot = originalImageName.lastIndexOf(".");
@@ -327,7 +397,7 @@ public class customerController {
 		}
 
 		String email = sessionSplit[1];
-				
+
 		user.setEmail(email);
 		user.setCompanyType(req.getParameter("companyType"));
 		user.setLegalRepresentative(req.getParameter("legalRepresentative"));
@@ -395,7 +465,5 @@ public class customerController {
 			System.out.println("error");
 		}
 	}
-	
-	
 
 }

@@ -14,12 +14,16 @@ import model.Investor;
 import model.appointment;
 import model.companyuser;
 import model.debtBuy;
+import model.debtDetail;
+import model.equity;
 import model.stockBuy;
+import model.investModel;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,8 +48,9 @@ public class investorController {
 
 	private appointmentDao appCus = (appointmentDao) context
 			.getBean("appointment");
-	private companyuserDao companyCusDao = (companyuserDao) context.getBean("companyuser");
-	
+	private companyuserDao companyCusDao = (companyuserDao) context
+			.getBean("companyuser");
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(HttpServletRequest req, HttpSession session,
 			Map<String, String> model) {
@@ -67,39 +72,65 @@ public class investorController {
 	}
 
 	@RequestMapping({ "/", "/index" })
-	public String index(HttpServletRequest req, HttpServletResponse res, Map<String, Integer> model) {
+	public String index(HttpServletRequest req, HttpServletResponse res,
+			Map<String, Integer> model) {
 		model.put("flag", 0);
 		res.setHeader("Access-Control-Allow-Origin", "*");
 		return "investor/logined-invest-index";
 	}
 
 	@RequestMapping("/logout")
-	public String logout(HttpSession session, Map<String, Integer> model) {
+	@ResponseBody
+	public Object logout(HttpSession session, Map<String, Integer> model) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		if (session.getAttribute("citiuser") != null) {
 			session.setAttribute("citiuser", null);
+			map.put("logout", "success");
+			return map;
 		}
-		model.put("flag", 0);
-		return "redirect:/customer/index";
+		map.put("logout", "failure");
+		return map;
 	}
 
 	@RequestMapping("/investModel")
-	public String investModel(Map<String, Integer> model) {
-		model.put("flag", 1);
-		return "investor/user-corporate-mode-finance-patch";
+	@ResponseBody
+	public Object investModel() {
+		Map<String, Object> model = new HashMap<String, Object>();
+		ArrayList<investModel> proList;
+		try {
+			proList = newuser.getInvestModel();
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("error", "err");
+			return model;
+		}
+		model.put("pro", proList);
+
+		return model;
 	}
 
 	@RequestMapping(value = "/releaseTender", method = RequestMethod.GET)
-	public String releaseTender(HttpSession session, Map<String, Object> model) {
+	@ResponseBody
+	public Object releaseTender(HttpSession session) {
+		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("flag", 1);
 		String sessionId = (String) session.getAttribute("citiuser");
 		String email = sessionId.split("=")[1];
-		Investor customer = newuser.getInvestorForDebt(email);
+		Investor customer;
+		try {
+			customer = newuser.getInvestorForDebt(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("res", "error");
+			return model;
+		}
+
 		model.put("username", customer.getUsername());
 		model.put("investorAddress", customer.getInvestAddress());
 		model.put("companyAddress", customer.getCompanyAddress());
 		model.put("legalRepresentative", customer.getLegalRepresentative());
 		model.put("investFiled", customer.getInvestFiled());
-		return "investor/release_tender_offers";
+		return model;
 	}
 
 	@ResponseBody
@@ -111,7 +142,7 @@ public class investorController {
 
 		stockBuy customer = new stockBuy();
 		customer.setCustomer(citiuser.split("=")[1]);
-		
+
 		try {
 			customer.setInvestmentMin(Integer.parseInt(req
 					.getParameter("investmentMin")));
@@ -249,16 +280,26 @@ public class investorController {
 	}
 
 	@RequestMapping(value = "/debtPurchase", method = RequestMethod.GET)
-	public String getDebtPurchase(HttpSession session, Map<String, Object> model) {
+	@ResponseBody
+	public Object getDebtPurchase(HttpSession session) {
 		String sessionId = (String) session.getAttribute("citiuser");
 		String email = sessionId.split("=")[1];
-		Investor customer = newuser.getInvestorForDebt(email);
+		Map<String, Object> model = new HashMap<String, Object>();
+		Investor customer;
+		try {
+			customer = newuser.getInvestorForDebt(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("error", "网络错误");
+			return model;
+		}
+
 		model.put("username", customer.getUsername());
 		model.put("investAddress", customer.getInvestAddress());
 		model.put("companyAddress", customer.getCompanyAddress());
 		model.put("legalRepresentative", customer.getLegalRepresentative());
 		model.put("investFiled", customer.getInvestFiled());
-		return "investor/release_debt_purchase";
+		return model;
 	}
 
 	@ResponseBody
@@ -366,16 +407,36 @@ public class investorController {
 	}
 
 	@RequestMapping("/investorChat")
-	public String getInvestorChat(HttpSession session, Model model) {
-		model.addAttribute("flag", (Integer) 1);
-		ArrayList<companyuser> user = companyCusDao.getCompanyUserAll();
-		model.addAttribute("friendList", user);
+	@ResponseBody
+	public Object getInvestorChat(HttpSession session) {
+		Map<String, Object> model = new HashMap<String, Object>();
+
+		model.put("flag", (Integer) 1);
+		ArrayList<companyuser> user;
+		try {
+			user = companyCusDao.getCompanyUserAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("err", "error");
+			return model;
+		}
+
+		ArrayList<Object> list = new ArrayList<Object>();
+		for (int i = 0; i < user.size(); i++) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("email", user.get(i).getEmail());
+			map.put("companyName", user.get(i).getCompanyName());
+			list.add(map);
+		}
+
+		model.put("friendList", list);
 		String sessionChar = (String) session.getAttribute("citiuser");
 		String[] email = sessionChar.split("=");
-		model.addAttribute("username", newuser.getInvestorByEmail(email[1]).getUsername());
-		
-		model.addAttribute("session",sessionChar);
-		return "investor/investor-chat";
+		model.put("username", newuser.getInvestorByEmail(email[1])
+				.getUsername());
+
+		model.put("session", sessionChar);
+		return model;
 	}
 
 	@RequestMapping(value = "/resavation", method = RequestMethod.GET)
@@ -448,98 +509,157 @@ public class investorController {
 
 	@RequestMapping("/newsManagment")
 	public String getNewsManagment(HttpSession session, Model model) {
-		String sessionId = (String)session.getAttribute("citiuser");
+		String sessionId = (String) session.getAttribute("citiuser");
 		String email = sessionId.split("=")[1];
 		List<Object> list = newuser.getInvestorAll(email);
 		model.addAttribute("investor", list);
 		return "investor/inews-managment";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping(value = "/toPerfectReg", method = RequestMethod.POST)
 	public Object toPerfect(HttpServletRequest req) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		Investor newCustomer = new Investor();
-		
+
 		HttpSession session = req.getSession();
 		String sessionId = (String) session.getAttribute("citiuser");
 		String email = sessionId.split("=")[1];
 		newCustomer.setEmail(email);
-		
+
 		newCustomer.setContact(req.getParameter("contact"));
 		newCustomer.setPosition(req.getParameter("position"));
 		try {
-			newCustomer.setCapitalFlow(Double.parseDouble(req.getParameter("capitalFlow")));
-		}catch(Exception e) {
+			newCustomer.setCapitalFlow(Double.parseDouble(req
+					.getParameter("capitalFlow")));
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(req.getParameter("capitalFlow"));
 			map.put("res", "请输入正确的资金额，只能为数字");
 			return map;
 		}
-		
+
 		newCustomer.setRegisterAddress(req.getParameter("registerAddress"));
 		newCustomer.setInvestFiled(req.getParameter("investFiled"));
 		newCustomer.setInvestStage(req.getParameter("investStage"));
 		newCustomer.setInvestorScale(req.getParameter("investScale"));
-		newCustomer.setInvestCycle(Integer.parseInt(req.getParameter("investCycle")));
+		newCustomer.setInvestCycle(Integer.parseInt(req
+				.getParameter("investCycle")));
 		newCustomer.setInvestAddress(req.getParameter("investAddress"));
 		newCustomer.setCompanyName(req.getParameter("companyName"));
 		newCustomer.setCompanyAddress(req.getParameter("companyAddress"));
-		
-		
-		newCustomer.setLegalRepresentative(req.getParameter("legalRepresentative"));
-		newCustomer.setLegalRepresentativewt(req.getParameter("legalRepresentativewt"));
-		newCustomer.setShareholderBackground(req.getParameter("shareholderBackground"));
+
+		newCustomer.setLegalRepresentative(req
+				.getParameter("legalRepresentative"));
+		newCustomer.setLegalRepresentativewt(req
+				.getParameter("legalRepresentativewt"));
+		newCustomer.setShareholderBackground(req
+				.getParameter("shareholderBackground"));
 		newCustomer.setManageFund(req.getParameter("manageFund"));
 		newCustomer.setInvestorHistory(req.getParameter("investorIndustry"));
 		newCustomer.setInvestorType(req.getParameter("investorType"));
 		newCustomer.setSuccessInvestor(req.getParameter("successInvestor"));
 		try {
-			newCustomer.setIntentionMoney(Double.parseDouble(req.getParameter("intentionMoney")));
-		} catch(Exception e) {
+			newCustomer.setIntentionMoney(Double.parseDouble(req
+					.getParameter("intentionMoney")));
+		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("res", "请输入正确的意向金额");
 			return map;
 		}
-		
+
 		newCustomer.setNeedResource(req.getParameter("needResource"));
 		newCustomer.setInvestorHistory(req.getParameter("investorHistory"));
-		
+
 		try {
 			newuser.toPerfect(newCustomer);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("res", "提交失败，稍后重试");
 			return map;
 		}
-		
+
 		map.put("res", "提交成功");
 		return map;
 	}
-	
+
 	@RequestMapping("/privateDebtList")
 	public String getPrivateDebtList(Map<String, Integer> model) {
 		model.put("leftOn", 1);
 		return "investor/private-debt-list";
 	}
-	
+
 	@RequestMapping("/queryProtocol")
 	public String getQueryProtocol() {
 		return "investor/search-protocol";
 	}
-	
+
 	@RequestMapping(value = "/investSituation", method = RequestMethod.GET)
 	public String getSituation() {
 		return "investor/socket-manage";
 	}
-	
+
 	@RequestMapping("/modifyContract")
 	public String getmodifyContract() {
 		return "investor/modify-contract";
 	}
-	
+
 	@RequestMapping("/historyInquiry")
 	public String getHistoryInquiry() {
 		return "investor/history-inquiry";
+	}
+
+	@ResponseBody
+	@RequestMapping("/logined")
+	public Object getLogined(HttpSession session) {
+		String citiuser = (String) session.getAttribute("citiuser");
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (citiuser == null) {
+			map.put("isLogined", 0);
+			return map;
+		}
+
+		String[] citiuserSplit = citiuser.split("=");
+		if (citiuserSplit[0].equals("iid")) {
+			map.put("isLogined", 1);
+			return map;
+		}
+
+		map.put("isLogined", 0);
+		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping("/equity/{pid}")
+	public Object getEquity(@PathVariable String pid) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		equity pro;
+		try {
+			pro = newuser.getequity(pid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("error", "error");
+			return model;
+		}
+		model.put("equ", pro);
+		return model;
+
+	}
+
+	@ResponseBody
+	@RequestMapping("/debtDetail/{pid}")
+	public Object getdebtDetail(@PathVariable String pid) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		debtDetail pro;
+		try {
+			pro = newuser.getDebtDetail(pid);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("error", "err");
+			return model;
+		}
+
+		model.put("debt", pro);
+		return model;
 	}
 }

@@ -103,51 +103,24 @@
                         <th>类型</th>
                         <th>地区</th>
                         <th>所属行业</th>
-                        <th>资金类型</th>
+                        <th>资金额</th>
                         <th>收益率</th>
                         <th class="rightItem">信用等级</th>
                     </tr>
-                    <!--*****************全是一样的**************************************************************************************-->
-                    <tr>
-                        <td>深圳某资金500万-2亿寻经营性实体招商引资项目</td>
-                        <td>股权投资</td>
-                        <td>深圳市</td>
-                        <td>教师</td>
-                        <td>企业资金</td>
-                        <td>6.1%</td>
-                        <td>AAA</td>
-                    </tr>
-                    <tr>
-                        <td>深圳某资金500万-2亿寻经营性实体招商引资项目</td>
-                        <td>股权投资</td>
-                        <td>深圳市</td>
-                        <td>企业资金</td>
-                        <td>4000万</td>
-                        <td>王女士</td>
-                    </tr>
-                    <tr>
-                        <td>深圳某资金500万-2亿寻经营性实体招商引资项目</td>
-                        <td>股权投资</td>
-                        <td>深圳市</td>
-                        <td>企业资金</td>
-                        <td>4000万</td>
-                        <td>王女士</td>
-                    </tr>
-                    <tr>
-                        <td>深圳某资金500万-2亿寻经营性实体招商引资项目</td>
-                        <td>股权投资</td>
-                        <td>深圳市</td>
-                        <td>企业资金</td>
-                        <td>4000万</td>
-                        <td>王女士</td>
-                    </tr>
-                    <tr>
-                        <td>深圳某资金500万-2亿寻经营性实体招商引资项目</td>
-                        <td>股权投资</td>
-                        <td>深圳市</td>
-                        <td>企业资金</td>
-                        <td>4000万</td>
-                        <td>王女士</td>
+                   
+                    <tr ng-repeat="proItem in pro track by $index">
+                        <td>
+                            <a 
+                            href=
+                            "investor.html#/pro/{{proItem.id}}/{{proItem.productType == '私募股权'? 1:2}}">{{proItem.companyName}}
+                            </a>
+                        </td>
+                        <td>{{proItem.productType}}</td>
+                        <td>{{proItem.registerAddress}}</td>
+                        <td>{{proItem.workField}}</td>
+                        <td>{{proItem.publishMoneyMin}}万</td>
+                        <td>{{(proItem.returnRate)*100}}%</td>
+                        <td>{{proItem.creditLevvel}}</td>
                     </tr>
                 </table>
             </div>

@@ -25,6 +25,10 @@
     padding: auto;
 }
 
+#main a {
+    color: #333333;
+}
+
 .title {
     font-size: 1.5em;
     padding-top: 35px;

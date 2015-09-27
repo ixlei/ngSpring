@@ -22,12 +22,12 @@ public class privateDebtDao {
 	}
 	
 	public void insert(privateDebt customer) {
-		String sql = "insert into privateEquity (publishMoneyMin, publishMoneyMax, publishFixedYesrs, publishFinsh, occupyMaxInterestMin "
-				+ "occupyMaxInterestMax, netAsset, returnMoneyWay, turnover, riskCotrollRequest, netProfit, investmentMinRequest, "
-				+ "bondsman, customer, time) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into privatedebt (publishMoneyMin, publishMoneyMax, publishFixedYesrs, publishFinsh, occupyMaxInterestMin, "
+				+ "occupyMaxInterestMax, netAsset, returnMoneyWay, turnover, riskCotrollRequest, netProfit, "
+				+ "bondsman, customer, time, occupyTime, returnSource) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql, customer.getPubMoneyMin(), customer.getPubMoneyMax(), customer.getPubFixedYesrs(),
 				customer.getPubFinsh(), customer.getoccupyMaxInterestMin(), customer.getoccupyMaxInterestMax(), customer.getNetAsset(),
 				customer.getReturnMoneyWay(), customer.getTurnover(), customer.getRiskControllReq(), customer.getNetProfit(),
-				customer.getInvestmentReq(), customer.getbondsman(),customer.getCustomer(), customer.getTime());
+				 customer.getbondsman(),customer.getCustomer(), customer.getTime(), customer.getOccupyTime(), customer.getReturnSource());
 	}
 }

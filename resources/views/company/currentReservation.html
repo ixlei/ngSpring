@@ -1,13 +1,14 @@
-<link rel="stylesheet" type="text/css" href="/stylesheets/reservation-management-current-reservation.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/currentReservation.css">
 <div id="mainContainer">
-    <div id="main">
+    <div id="main-c">
         <div id="sidebarContainer">
             <div id="listTitle">
                 <ul id="sidebarTitle">
                     <li class="sidebarItem">预约管理</li>
                 </ul>
             </div>
-            <jsp:include page="reservation-sidenav.jsp"></jsp:include>
+            <div ng-include="'/views/company/reservation-sidenav.html'" scope="" onload="" id="listContent">
+            </div>
         </div>
         <div id="mainContent">
             <div id="searchForm">
@@ -44,62 +45,6 @@
                         <td>&nbsp;18840838187&nbsp;</td>
                         <td>&nbsp;2015-10-05&nbsp;</td>
                         <td>&nbsp;2015-09-10&nbsp;&nbsp;</td>
-                        <td><a class="A_finished" href="javascript:void(0);" data-index="1">&nbsp;&nbsp;&nbsp;完成&nbsp;&nbsp;&nbsp;</a></td>
-                    </tr>
-                    <tr onMouseOver="this.style.backgroundColor='#ffff66';" onMouseOut="this.style.backgroundColor='#d4e3e5';" class="tr-list" data-index="1">
-                        <td>唐烨煊&nbsp;</td>
-                        <td>&nbsp;15542320109&nbsp;</td>
-                        <td>&nbsp;2015-09-28&nbsp;</td>
-                        <td>&nbsp;2015-09-15&nbsp;&nbsp;</td>
-                        <td><a class="A_finished" href="javascript:void(0);" data-index="1">&nbsp;&nbsp;&nbsp;完成&nbsp;&nbsp;&nbsp;</a></td>
-                    </tr>
-                    <tr onMouseOver="this.style.backgroundColor='#ffff66';" onMouseOut="this.style.backgroundColor='#d4e3e5';" class="tr-list" data-index="1">
-                        <td>闫怡卉&nbsp;</td>
-                        <td>&nbsp;18340861556&nbsp;</td>
-                        <td>&nbsp;2015-09-27&nbsp;</td>
-                        <td>&nbsp;2015-09-14&nbsp;&nbsp;</td>
-                        <td><a class="A_finished" href="javascript:void(0);" data-index="1">&nbsp;&nbsp;&nbsp;完成&nbsp;&nbsp;&nbsp;</a></td>
-                    </tr>
-                    <tr onMouseOver="this.style.backgroundColor='#ffff66';" onMouseOut="this.style.backgroundColor='#d4e3e5';" class="tr-list" data-index="1">
-                        <td>潘与成&nbsp;</td>
-                        <td>&nbsp;18840823156&nbsp;</td>
-                        <td>&nbsp;2015-09-26&nbsp;</td>
-                        <td>&nbsp;2015-09-14&nbsp;&nbsp;</td>
-                        <td><a class="A_finished" href="javascript:void(0);" data-index="1">&nbsp;&nbsp;&nbsp;完成&nbsp;&nbsp;&nbsp;</a></td>
-                    </tr>
-                    <tr onMouseOver="this.style.backgroundColor='#ffff66';" onMouseOut="this.style.backgroundColor='#d4e3e5';" class="tr-list" data-index="1">
-                        <td>马凯&nbsp;</td>
-                        <td>&nbsp;15541198290&nbsp;</td>
-                        <td>&nbsp;2015-09-25&nbsp;</td>
-                        <td>&nbsp;2015-09-13&nbsp;&nbsp;</td>
-                        <td><a class="A_finished" href="javascript:void(0);" data-index="1">&nbsp;&nbsp;&nbsp;完成&nbsp;&nbsp;&nbsp;</a></td>
-                    </tr>
-                    <tr onMouseOver="this.style.backgroundColor='#ffff66';" onMouseOut="this.style.backgroundColor='#d4e3e5';" class="tr-list" data-index="1">
-                        <td>杨玉婷&nbsp;</td>
-                        <td>&nbsp;15524704435&nbsp;</td>
-                        <td>&nbsp;2015-09-25&nbsp;</td>
-                        <td>&nbsp;2015-09-13&nbsp;&nbsp;</td>
-                        <td><a class="A_finished" href="javascript:void(0);" data-index="1">&nbsp;&nbsp;&nbsp;完成&nbsp;&nbsp;&nbsp;</a></td>
-                    </tr>
-                    <tr onMouseOver="this.style.backgroundColor='#ffff66';" onMouseOut="this.style.backgroundColor='#d4e3e5';" class="tr-list" data-index="1">
-                        <td>田熙颖&nbsp;</td>
-                        <td>&nbsp;18842678655&nbsp;</td>
-                        <td>&nbsp;2015-09-25&nbsp;</td>
-                        <td>&nbsp;2015-09-13&nbsp;&nbsp;</td>
-                        <td><a class="A_finished" href="javascript:void(0);" data-index="1">&nbsp;&nbsp;&nbsp;完成&nbsp;&nbsp;&nbsp;</a></td>
-                    </tr>
-                    <tr onMouseOver="this.style.backgroundColor='#ffff66';" onMouseOut="this.style.backgroundColor='#d4e3e5';" class="tr-list" data-index="1">
-                        <td>李旺&nbsp;</td>
-                        <td>&nbsp;13478919974&nbsp;</td>
-                        <td>&nbsp;2015-09-25&nbsp;</td>
-                        <td>&nbsp;2015-09-13&nbsp;&nbsp;</td>
-                        <td><a class="A_finished" href="javascript:void(0);" data-index="1">&nbsp;&nbsp;&nbsp;完成&nbsp;&nbsp;&nbsp;</a></td>
-                    </tr>
-                    <tr onMouseOver="this.style.backgroundColor='#ffff66';" onMouseOut="this.style.backgroundColor='#d4e3e5';" class="tr-list" data-index="1">
-                        <td>刘浩&nbsp;</td>
-                        <td>&nbsp;18840868327&nbsp;</td>
-                        <td>&nbsp;2015-09-24&nbsp;</td>
-                        <td>&nbsp;2015-09-11&nbsp;&nbsp;</td>
                         <td><a class="A_finished" href="javascript:void(0);" data-index="1">&nbsp;&nbsp;&nbsp;完成&nbsp;&nbsp;&nbsp;</a></td>
                     </tr>
                     <tr onMouseOver="this.style.backgroundColor='#ffff66';" onMouseOut="this.style.backgroundColor='#d4e3e5';" class="tr-list" data-index="1">

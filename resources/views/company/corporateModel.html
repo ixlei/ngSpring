@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/user-corporate-mode-finance-patch.css">
 <div id="mainContainer">
-    <div id="main">
+    <div id="main_">
         <div id="mainContent">
             <div id="searchForm">
                 <div id="searchInput">
@@ -152,53 +152,18 @@
                         <th>金额</th>
                         <th class="rightItem">投资者</th>
                     </tr>
-                    <tr>
-                        <td>深圳某资金500万-2亿寻经营性实体招商引资项目</td>
-                        <td>股权投资</td>
-                        <td>深圳市</td>
-                        <td>企业资金</td>
-                        <td>4000万</td>
-                        <td>王女士</td>
-                    </tr>
-                    <tr>
-                        <td>深圳某资金500万-2亿寻经营性实体招商引资项目</td>
-                        <td>股权投资</td>
-                        <td>深圳市</td>
-                        <td>企业资金</td>
-                        <td>4000万</td>
-                        <td>王女士</td>
-                    </tr>
-                    <tr>
-                        <td>深圳某资金500万-2亿寻经营性实体招商引资项目</td>
-                        <td>股权投资</td>
-                        <td>深圳市</td>
-                        <td>企业资金</td>
-                        <td>4000万</td>
-                        <td>王女士</td>
-                    </tr>
-                    <tr>
-                        <td>深圳某资金500万-2亿寻经营性实体招商引资项目</td>
-                        <td>股权投资</td>
-                        <td>深圳市</td>
-                        <td>企业资金</td>
-                        <td>4000万</td>
-                        <td>王女士</td>
-                    </tr>
-                    <tr>
-                        <td>深圳某资金500万-2亿寻经营性实体招商引资项目</td>
-                        <td>股权投资</td>
-                        <td>深圳市</td>
-                        <td>企业资金</td>
-                        <td>4000万</td>
-                        <td>王女士</td>
-                    </tr>
-                    <tr>
-                        <td>深圳某资金500万-2亿寻经营性实体招商引资项目</td>
-                        <td>股权投资</td>
-                        <td>深圳市</td>
-                        <td>企业资金</td>
-                        <td>4000万</td>
-                        <td>王女士</td>
+                    <tr ng-repeat="pro in cor track by $index">
+                        <td>
+                            <a href="company.html#/buy/{{pro.productType == '股权投资' ? 1 : 2}}/{{pro.id}}">
+                            {{pro.companyName}}有限公司
+                            {{pro.investmentMin}}万-{{pro.investmentMax}}万投资项目
+                            </a>
+                        </td>
+                        <td>{{pro.productType}}</td>
+                        <td>{{pro.registerAddress}}</td>
+                        <td>{{pro.moneyType}}</td>
+                        <td>{{pro.investmentMax}}万</td>
+                        <td>{{pro.username}}</td>
                     </tr>
                 </table>
             </div>

@@ -11,13 +11,17 @@ import javax.servlet.http.HttpSession;
 
 import model.Investor;
 import model.companyuser;
+import model.corporateModel;
+import model.debt;
 import model.privateDebt;
 import model.privateEquity;
+import model.stock;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,19 +47,13 @@ public class companyController {
 
 	private privateDebtDao privateDebtCus = (privateDebtDao) context
 			.getBean("privateDebt");
-	
+
 	private investorDao investorD = (investorDao) context.getBean("investor");
 
 	@RequestMapping({ "/", "/index" })
 	public String getIndex(Map<String, Integer> model) {
 		model.put("flag", 0);
 		return "company/business-index";
-	}
-
-	@RequestMapping("/corporateModel")
-	public String getCorporateModel(Map<String, Integer> model) {
-		model.put("flag", 1);
-		return "company/corporate-mode-finance-patch";
 	}
 
 	@RequestMapping("/manage")
@@ -120,13 +118,13 @@ public class companyController {
 		Map<String, Object> model = new HashMap<String, Object>();
 		companyuser user;
 		try {
-			user =  customerDao.getCompanyUserForPrivateEquity(email);
-		} catch(Exception e) {
+			user = customerDao.getCompanyUserForPrivateEquity(email);
+		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("error", "error");
 			return model;
 		}
-		
+
 		model.put("companyName", user.getCompanyName());
 		model.put("registerAddress", user.getRegisterAddress());
 		model.put("createTime", user.getCreateTime());
@@ -257,15 +255,26 @@ public class companyController {
 	}
 
 	@RequestMapping("/chat")
-	public String getChat(HttpSession session, Model model) {
+	@ResponseBody
+	public Object getChat(HttpSession session) {
 		String sessionChar = (String) session.getAttribute("citiuser");
-		ArrayList<Investor> friendList = investorD.getInvestorAll();
-		model.addAttribute("friendList", friendList);
+		Map<String, Object> model = new HashMap<String, Object>();
+		ArrayList<Investor> friendList;
+		try {
+			friendList = investorD.getInvestorAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("friendList", "error");
+			return model;
+		}
+
+		model.put("friendList", friendList);
 		String[] email = sessionChar.split("=");
-	
-		model.addAttribute("companyname", customerDao.getCompanyUserByEmail(email[1]).getCompanyName());
-		model.addAttribute("session", sessionChar);
-		return "company/company-chat";
+
+		model.put("companyname", customerDao.getCompanyUserByEmail(email[1])
+				.getCompanyName());
+		model.put("session", sessionChar);
+		return model;
 	}
 
 	@RequestMapping("/resavation")
@@ -292,12 +301,12 @@ public class companyController {
 		companyuser user;
 		try {
 			user = customerDao.getCompanyUserForPrivateEquity(email);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			model.put("error", "error");
 			return model;
 		}
-		 
+
 		model.put("companyName", user.getCompanyName());
 		model.put("registerAddress", user.getRegisterAddress());
 		model.put("createTime", user.getCreateTime());
@@ -446,8 +455,6 @@ public class companyController {
 		return "company/finished-reservation";
 	}
 
-	
-
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 
@@ -458,36 +465,88 @@ public class companyController {
 
 		return "redirect:/customer/index";
 	}
-	
+
 	@RequestMapping("/isource")
 	public String getIsource() {
 		return "company/isource";
 	}
-	
+
 	@RequestMapping("/isourceEdit")
 	public String getIsourceEdit() {
 		return "company/sourceEdit";
 	}
-	
+
 	@ResponseBody
 	@RequestMapping("/logined")
 	public Object logined(HttpSession session) {
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
-		String id = (String)session.getAttribute("citiuser");
-		if(id == null) {
+		String id = (String) session.getAttribute("citiuser");
+		if (id == null) {
 			map.put("logined", 0);
 			return map;
 		}
-		
+
 		String prefix = id.split("=")[0];
-		if(prefix.equals("cid")) {
+		if (prefix.equals("cid")) {
 			map.put("logined", 1);
 			return map;
 		}
-		
+
 		map.put("logined", 0);
 		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping("/corporateModel")
+	public Object getCorporateModel() {
+		Map<String, Object> model = new HashMap<String, Object>();
+		ArrayList<corporateModel> cor;
+		try {
+			cor = customerDao.getCorporateModel();
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("err", "err");
+			return model;
+		}
+
+		model.put("cor", cor);
+		return model;
+
+	}
+
+	@ResponseBody
+	@RequestMapping("/stock/{id}")
+	public Object getstock(@PathVariable String id) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		stock s;
+		try {
+			s = customerDao.getstock(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("error", "error");
+			return model;
+		}
+
+		model.put("stock", s);
+		return model;
+	}
+
+	@ResponseBody
+	@RequestMapping("/debt/{id}")
+	public Object getDebt(@PathVariable String id) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		debt d;
+		try {
+			d = customerDao.getdebt(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("debt", "error");
+			return model;
+		}
+
+		model.put("debt", d);
+		return model;
 	}
 
 }

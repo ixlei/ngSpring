@@ -18,6 +18,7 @@ comApp.run(function($rootScope, $log, $window, authService, $location) {
             $location.replace();
         });
     });
+
 });
 
 comApp.config(function($routeProvider, $locationProvider) {
@@ -26,14 +27,15 @@ comApp.config(function($routeProvider, $locationProvider) {
     });
 
     $routeProvider.when('/corporateModel', {
-        templateUrl: '/views/company/corporateModel.html'
+        templateUrl: '/views/company/corporateModel.html',
+        controller: 'corCtrl'
     });
 
     $routeProvider.when('/financepublish', {
         templateUrl: '/views/company/financepublish.html',
         controller: 'financeController',
         resolve: {
-            data: function(financeService, $log) {
+            data: function(financeService) {
                 var p = financeService.get();
                 return p.success(function(resp) {
                     return resp.data;
@@ -43,7 +45,16 @@ comApp.config(function($routeProvider, $locationProvider) {
     });
 
     $routeProvider.when('/chat', {
-        templateUrl: '/views/company/chat.html'
+        templateUrl: '/views/company/chat.html',
+        cntroller: 'chatController',
+        resolve: {
+            data: function(chatService) {
+                return chatService.getFriend();
+                return p.success(function(res) {
+                    return res;
+                });
+            }
+        }
     });
 
     $routeProvider.when('/appliedCompany', {
@@ -87,4 +98,37 @@ comApp.config(function($routeProvider, $locationProvider) {
         }
     });
 
+    $routeProvider.when('/buy/1/:id', {
+        templateUrl: '/views/company/stock-detail.html',
+        controller: 'stockController'
+    });
+
+    $routeProvider.when('/buy/2/:id', {
+        templateUrl: '/views/company/debt-detail.html',
+        controller: 'debtController'
+    });
+
+    $routeProvider.when('/chatHistory', {
+        templateUrl: '/views/company/chatHistory.html'
+    });
+
+    $routeProvider.when('/modifyContract', {
+        templateUrl: '/views/company/modifyContract.html'
+    });
+
+    $routeProvider.when('/directionDown', {
+        templateUrl: '/views/company/directionDown.html'
+    });
+
+    $routeProvider.when('/infoPublish', {
+        templateUrl: '/views/company/infoPublish.html'
+    });
+
+    $routeProvider.when('/ipublish', {
+        templateUrl: '/views/company/ipublish.html'
+    });
+
+    $routeProvider.when('/manage', {
+        templateUrl: '/views/company/manage.html'
+    });
 });

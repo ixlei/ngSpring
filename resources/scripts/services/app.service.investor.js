@@ -66,3 +66,24 @@ investorServer.factory('logoutService', function($http) {
     };
     return logout;
 });
+
+investorServer.factory('investModelService', function($http) {
+    var model = {
+        get: function() {
+            var url = '/ngSpring/investor/investModel';
+            return $http.get(url);
+        },
+        getEquity: function(query) {
+            var url = '/ngSpring/investor/equity/' + query.pid;
+            return $http({
+                method: 'GET',
+                url: url
+            });
+        },
+        getDebtDetail: function(q) {
+            var url = '/ngSpring/investor/debtDetail/' + q;
+            return $http.get(url);
+        }
+    };
+    return model;
+});

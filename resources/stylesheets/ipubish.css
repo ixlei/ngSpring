@@ -67,6 +67,7 @@ ul#sidebarTitle {
 }
 
 #mainContent {
+    position: relative;
     margin-left: 200px;
     margin-right: 0px;
     width: 582px;
@@ -163,7 +164,7 @@ table {
 #publishButton {
     position: absolute;
     top: 880px;
-    left: 432px;
+    left: 200px;
     width: 131px;
     border: 3px solid #A4B3E4;
     border-radius: 5px;

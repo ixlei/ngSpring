@@ -71,16 +71,13 @@ ul#sidebarTitle {
     height: 926px;
 }
 
-.title {
-    font-size: 1.5em;
-    padding-top: 35px;
-    margin-left: 10px;
+.A_finished {
+    background-image: url("/images/finished.png");
 }
 
 #searchForm {
     float: right;
     padding-top: 30px;
-    padding-right: 10px;
 }
 
 #searchForm p {
@@ -120,14 +117,6 @@ ul#sidebarTitle {
     font-size: 1em;
 }
 
-#textClear {
-    width: 13px;
-    height: 14px;
-    position: absolute;
-    left: 728px;
-    top: 102px;
-}
-
 #searchInput {
     display: inline;
     margin: 0px;
@@ -149,9 +138,12 @@ select {
     width: 222px;
     display: inline-block;
     border: 1px solid #A4B3E4;
-    border-radius: 3px;
+    border-radius: 5px;
     outline: none;
 }
+
+
+/***************************************************************************table********************/
 
 #TableList {
     float: left;
@@ -161,7 +153,7 @@ select {
     padding-top: 15px;
 }
 
-table {
+table.hovertable {
     font-family: verdana, arial, sans-serif;
     font-size: 15px;
     color: #333333;
@@ -170,27 +162,27 @@ table {
     border-collapse: collapse;
     margin-left: 47px;
     margin-top: 12px;
-    width: 80%;
 }
 
-th {
+table.hovertable th {
     background-color: #FFFFFF;
     border-width: 1px;
     padding: 8px;
     border-color: #FFF;
-    text-align: center;
+    /*border-left: #FFF;
+	border-right:#FFF;
+    border-bottom: 1px solid #C7CCDB;*/
 }
 
-table tr {
+table.hovertable tr {
     background-color: #d4e3e5;
     border-color: #FCFCFC;
     border-left: #FFF;
     border-right: #FFF;
     border-bottom: 10px #C7CCDB;
-    text-align: center;
 }
 
-table td {
+table.hovertable td {
     border-width: 1px;
     padding: 8px;
     border-style: solid;
@@ -211,6 +203,49 @@ table td {
     border-top: 2px solid #F5F5F5;
 }
 
+
+/*li和list*/
+
+
+/*#listcontain{
+	height:500px;
+	padding-top:15px;
+	backgroud:#FFF;
+	}
+#Ul_listcontainer{
+	margin-top:15px;
+	margin-left:-40px;
+	}
+.h1{
+	
+	}
+.line1{
+	height:1px;border:none;border-top:1px solid #555555;
+	}
+.com_detail{
+	color: black;
+	}*/
+
+
+/*article{
+	margin-left:15px;
+	}
+.title
+{
+	font-size: 1.2em;
+	margin-top: 8px;
+	margin-bottom: 24px;
+}
+.p1,.p2,.p3,.p4{
+	font-size:0.8em;
+	margin-top:15px;
+	margin-bottom:15px;
+	}
+.A_name,.B_name,.A_num,.B_num,.project_name,.company_name,.com_name,.A_money,.B_money,.money_proportion,.File_num,.A_Signname,.B_Signname,.A_Year,.A_Month,.A_Day,.B_Year,.B_Month,.B_Day,.A_address,.B_address{
+	text-decoration:underline;
+	font-size:0.8em;
+	}*/
+
 #page {
     text-align: center;
     bottom: 100%;
@@ -219,8 +254,4 @@ table td {
 p {
     margin-top: 0px;
     margin-bottom: 0;
-}
-
-.list ul li a {
-    color: #2A324B;
 }

@@ -1,34 +1,96 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/service-chat-reservation.css" />
 <div class="wrap">
-    <p class="title" id="to" data-to="test">您当前预约的是：渤海黑山集团公司</p>
-    <p class="select_time">请选择时间：</p>
-    <form action="/springmvc/investor/appointment" method="POST" name="form">
-        <table>
-            <tr>
-                <td align=left id="calOne" valign=top>
-                    loading calendar one...
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button class="time_button first_but">一周之内</button>
-                    <button class="time_button">一个月内</button>
-                    <button class="time_button">三个月内</button>
-                    <button class="time_button">半年内</button>
-                    <button class="time_button">一年</button>
-                    <button class="time_button">中秋</button>
-                    <button class="time_button">国庆</button>
-                </td>
-            </tr>
-        </table>
-        <p class="notice">
-            您的姓名:
-        </p>
-        <input type="text" name="name" />
-        <p class="notice">
-            您的联系方式:
-        </p>
-        <input type="text" name="phoneNumber" />
-        <input class="reservation" type="button" value="确认预约" id="btn">
-    </form>
+    <form action="investor.html#/appointment">
+        <div id="resvator" class="in">
+            <label class="title" id="to" data-to="test">您预约的是：</label>
+            <input type="text" name="user" value="">
+        </div>
+        <div id="time-select" class="in" ng-controller="calendarController">
+            <div id="time-in">
+                <label class="select_time">请选择时间：</label>
+                <input type="text" name="time" placeholder="yyyy-mm-dd" 
+                ng-model="calender.selectTime" value="{{calender.selectTime}}">
+            </div>
+            <div id="layer-calendar" >
+                <div id="left-arrow">
+                    <span class="helper"></span>
+                    <a href="javascript:void(0);" cal-last-directive>
+                        <img src="/images/larrow.png">
+                    </a>
+                </div>
+                <div id="calender">
+                    <div id="calender1">
+                        <table>
+                            <caption>{{calender.nowCal.year}}年{{calender.nowCal.month + 1}}月</caption>
+                            <thead>
+                                <tr>
+                                    <th>周日</th>
+                                    <th>周一</th>
+                                    <th>周二</th>
+                                    <th>周三</th>
+                                    <th>周四</th>
+                                    <th>周五</th>
+                                    <th>周六</th>
+                                </tr>
+                            </thead>
+                            <tbody date-select-directive>
+                                <tr>
+                                    <th scope="rowgroup" colspan="7"></th>
+                                </tr>
+                                <tr ng-repeat="week in calender.nowCal.data track by $index">
+                                    <td ng-repeat="day in week track by $index" data-day="{{day.time}}" ng-class="{abled: day.isValid}">
+                                        {{day.day}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="calender2">
+                        <table>
+                            <caption>{{calender.nextCal.year}}年{{calender.nextCal.month + 1}}月</caption>
+                            <thead>
+                                <tr>
+                                    <th>周日</th>
+                                    <th>周一</th>
+                                    <th>周二</th>
+                                    <th>周三</th>
+                                    <th>周四</th>
+                                    <th>周五</th>
+                                    <th>周六</th>
+                                </tr>
+                            </thead>
+                            <tbody date-select-directive>
+                                <tr>
+                                    <th scope="rowgroup" colspan="7"></th>
+                                </tr>
+                                <tr ng-repeat="week in calender.nextCal.data track by $index">
+                                    <td ng-repeat="day in week track by $index" data-day="{{day.time}}" ng-class="{abled: day.isValid}">
+                                        {{day.day}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="right-arrow">
+                    <span class="helper"></span>
+                    <a href="javascript:void(0);" cal-next-directive>
+                        <img src="/images/rarrow.png">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="in">
+            <label class="notice"> 您的姓名:</label>
+            <input type="text" name="name" />
+        </div>
+        <div class="in">
+            <label class="notice">您的联系方式:</label>
+            <input type="text" name="phoneNumber" />
+        </div>
+        <div class="in">
+            <input class="reservation" type="button" value="确认预约" id="btn">
+        </div>
+</div>
+</form>
 </div>

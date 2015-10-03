@@ -82,10 +82,25 @@ public class companyController {
 	}
 
 	@RequestMapping("/ipublish")
-	public String getIPublish(Map<String, Integer> model) {
+	@ResponseBody
+	public Object getIPublish(HttpSession session) {
+		String Id = (String) session.getAttribute("citiuser");
+		String email = Id.split("=")[1];
+		Map<String, Object> model = new HashMap<String, Object>();
+		companyuser user;
+
+		try {
+			user = customerDao.getIpub(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("res", "error");
+			return model;
+		}
+		model.put("res", "success");
+		model.put("user", user);
 		model.put("flag", 2);
 		model.put("leftNav", 3);
-		return "company/ipublish";
+		return model;
 	}
 
 	@RequestMapping("/creditRelease")

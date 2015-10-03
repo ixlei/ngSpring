@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/ipubish.css">
 <div id="mainContainer">
-    <div id="main">
+    <div>
         <div id="sidebarContainer">
             <div id="listTitle">
                 <ul id="sidebarTitle">
@@ -13,10 +13,7 @@
         <div id="mainContent">
             <div id="searchForm">
                 <div id="input">
-                    <div id="textClear">
-                        <a href=""><img src="/images/cancel.png"></a>
-                    </div>
-                    <input id="searchText" type="text" placeholder="请输入关键字搜索">
+                    <input id="searchText" type="text" placeholder="搜">
                 </div>
                 <a href="" style="display:inline;">
                     <div id="searchButton">搜索</div>
@@ -28,56 +25,65 @@
                 <table id="subjectListContent">
                     <tbody>
                         <tr>
-                            <td>公司名称：某某股份有限公司</td>
-                            <td>成立时间：2006/10/09</td>
+                            <td>公司名称：{{data.user.companyName}}</td>
+                            <td>成立时间：{{data.user.createTime}}</td>
                         </tr>
                         <tr>
-                            <td class="listItem">所在地区：广东省 深圳市 宝安区</td>
-                            <td class="listItem">注册资本：5000万&nbsp;人民币</td>
+                            <td class="listItem">所在地区： {{data.user.registerAddress}}
+                            </td>
+                            <td class="listItem">注册资本： {{data.user.registerCapital}}万
+                            </td>
                         </tr>
                         <tr>
-                            <td class="listItem">所属行业：机械制造业</td>
-                            <td class="listItem">咨询电话：0755-86802655</td>
+                            <td class="listItem">所属行业： {{data.user.workField}}
+                            </td>
+                            <td class="listItem">咨询电话： {{data.user.phoneNumber}}
+                            </td>
                         </tr>
                         <tr>
-                            <td class="listItem">所属专利：专利一、专利二</td>
+                            <td class="listItem">所属专利：</td>
                             <td class="listItem">驻外办事处机构：无</td>
                         </tr>
                         <tr>
-                            <td class="listItem">分厂：分厂一、分厂二</td>
-                            <td class="listItem">员工人数：100人</td>
+                            <td class="listItem">分厂： {{data.user.branchFactory}}
+                            </td>
+                            <td class="listItem">员工人数： {{data.user.employeesNum}}人
+                            </td>
                         </tr>
                         <tr>
-                            <td class="listItem">子公司：子公司一</td>
-                            <td class="listItem">占地面积：100亩</td>
+                            <td class="listItem">子公司： {{data.user.subsidiary}}
+                            </td>
+                            <td class="listItem">占地面积： {{data.user.comapnyArea}}亩
+                            </td>
                         </tr>
                         <tr>
-                            <td class="listItem">技术优势：优势优势</td>
-                            <td class="listItem">人才优势：优势优势</td>
+                            <td class="listItem">技术优势： {{data.user.technologyAdvantage}}
+                            </td>
+                            <td class="listItem">人才优势： {{data.user.productAdvantage}}
+                            </td>
                         </tr>
                         <tr>
-                            <td class="listItem">产品优势：优势优势</td>
-                            <td class="listItem">品牌优势：优势优势</td>
+                            <td class="listItem">产品优势： {{data.user.productAdvantage}}
+                            </td>
+                            <td class="listItem">品牌优势：</td>
                         </tr>
                         <tr>
-                            <td class="listItem">市场优势：优势优势</td>
-                            <td class="listItem">管理优势：优势优势</td>
+                            <td class="listItem">市场优势：</td>
+                            <td class="listItem">管理优势：</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <p class="title">产品服务：</p>
             <p>
-                公司产品公司产品公司产品公司产品公司产品公司产品公司产品公司产品公司产品公司产
+                {{data.user.productService}}
             </p>
             <p class="title">公司简介</p>
-            <p>公司简介公司简介</p>
+            <p></p>
             <p class="title">公司相册</p>
             <div id="albumContainer"></div>
-            <a href="javascript:void(0);" onclick="publishWidget.startWidget('albumContainer')">
-                <div id="publishButton">发布更多消息
-                </div>
-            </a>
+            <div id="publishButton">发布更多消息
+            </div>
             <div id="page">
             </div>
         </div>

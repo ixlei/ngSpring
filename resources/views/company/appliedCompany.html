@@ -1,19 +1,17 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/nav.css" />
 <link rel="stylesheet" type="text/css" href="/stylesheets/check-finacing-sign.css" />
 <div class="wrap">
     <div class="nav">
         <div class="title">
             <p>电子签约</p>
         </div>
-        <!--tit-->
         <div class="tri">
         </div>
         <div class="tri1">
         </div>
-        <jsp:include page="eletronic-sign-left-nav.jsp"></jsp:include>
+        <div ng-include="'/views/company/eletronic-sign-left-nav.html'" scope="" onload="" class="list"></div>
     </div>
-    <!--list-->
 </div>
-<!--nav-->
 </div>
 <div class="main">
     <p class="welcome">
@@ -25,11 +23,9 @@
     </p>
     <div class="left_line">
     </div>
-    <!--left_line-->
     <span class="tit">电子签约流程</span>
     <div class="right_line">
     </div>
-    <!--right_line-->
     <div class="progress">
         <img src="/images/DC-apply.png" class="DC_apply">
         <img src="/images/connection.png" class="connection c1">
@@ -51,8 +47,5 @@
             <img src="/images/sign-finished.png" class="sign_finished">
         </a>
     </div>
-    <!--progress-->
 </div>
-<!--main-->
 </div>
-<!--wrap-->

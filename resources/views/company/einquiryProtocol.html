@@ -1,0 +1,57 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/nav.css">
+<link rel="stylesheet" type="text/css" href="/stylesheets/einquiryProtocol.css">
+<div id="mainContainer">
+    <div id="main-c">
+        <div id="sidebarContainer">
+            <div id="listTitle">
+                <ul id="sidebarTitle">
+                    <li class="sidebarItem">电子签约</li>
+                </ul>
+            </div>
+            <div ng-include="'/views/company/eletronic-sign-left-nav.html'" scope="" onload="" class="list"></div>
+        </div>
+        <div id="mainContent">
+            <p class="title">协议查询</p>
+            <div id="searchForm">
+                <div id="searchInput">
+                    <div id="textClear">
+                        <a href=""><img src="/images/cancel.png"></a>
+                    </div>
+                    <input id="searchText" type="text" placeholder="请输入关键字搜索">
+                </div>
+                <a href="" style="display:inline;">
+                    <div id="searchButton">查询</div>
+                </a>
+            </div>
+            <div id="selectForm">
+                <p>排序：</p>
+                <select>
+                    <option></option>
+                    <option>签约时间</option>
+                    <option>签约方</option>
+                    <option>合约内容</option>
+                    <option>状态</option>
+                </select>
+            </div>
+            <div id="TableList">
+                <table class="hovertable">
+                    <tr>
+                        <th>签约时间</th>
+                        <th>签约方</th>
+                        <th>合约内容</th>
+                        <th>状态</th>
+                    </tr>
+                    <tr>
+                        <td>2015-01-01</td>
+                        <td>安心股权有限公司</td>
+                        <td>股权转让协议</td>
+                        <td>审核中</td>
+                    </tr>
+                </table>
+                <hr class="hr1" />
+            </div>
+            <div id="page">
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,12 +1,13 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/invest-chat.css">
 <link rel="stylesheet" type="text/css" href="/stylesheets/chat-fonts.css">
 <div id="main">
-    <div id="content">
+    <div id="content" ng-controller="chatController">
         <div id="first-galance">
             <div id="chat-title">
-                <div data-uid="${session}" id="title">
+                <div data-uid="{{data.session}}" id="title">
                     <span>
-                            <a href="" title="">${companyname }，欢迎您进行业务洽谈</a>
+                            <a href="" title="">
+                            {{data.companyname}}，欢迎您进行业务洽谈</a>
                         </span>
                 </div>
                 <div id="show-hidden">
@@ -18,14 +19,14 @@
             <div id="to-list">
                 <ul>
                     <li>
-                        <c:forEach var="friendList" items="${friendList }">
-                            <span class="to-one">
-                                <span class="name"><c:out value="${friendList.username }"></c:out> </span>
-                            <span class="connect-btn">
-                                    <a href="javascript:void(0)" data-form="<c:out value="${ friendList.email}"></c:out>" data-nickname="<c:out value="${friendList.username }"></c:out>" >联系</a>
-                                </span>
+                        <span class="to-one" ng-repeat="list in data.friendList track by $index">
+                            <span class="name">{{list.username}}</span>
+                        <span class="connect-btn">
+                                <a href="javascript:void(0)" 
+                                   data-form="{{list.email}}"
+                                   data-nickname="{{list.username}}">联系</a>
                             </span>
-                        </c:forEach>
+                        </span>
                     </li>
                     <li>
                     </li>

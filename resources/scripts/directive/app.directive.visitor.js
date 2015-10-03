@@ -411,6 +411,7 @@ visDirective.directive('loginDirective', function(userService, $log, $window, $l
         restrict: 'A',
         link: function(scope, ele, attr) {
             ele.bind('click', function(e) {
+
                 var data = {
                     username: scope.user.name,
                     password: scope.user.password,
@@ -507,7 +508,6 @@ visDirective.directive('circleDirective', function(d3Service,
                     .attr('class', 'svg-circle-g')
                     .style('stroke', g.stroke || 'white')
                     .style('stroke-width', g.strokeWidth || 1)
-                    .style('display', 'none')
                     .attr('transform', 'translate(' + gTranslate.x + ',' + gTranslate.y + ')');
 
                 arcs.append('path')

@@ -161,7 +161,7 @@ table {
     overflow: auto;
 }
 
-#publishButton {
+#pubBtn {
     position: absolute;
     top: 880px;
     left: 200px;
@@ -171,7 +171,7 @@ table {
     text-align: center;
 }
 
-a #publishButton {
+a #pubBtn {
     color: #A4B3E4;
 }
 
@@ -252,4 +252,105 @@ a #publishButton {
 
 .list ul li a {
     color: #43495d;
+}
+
+body {
+    background-color: #EEF2F4;
+}
+
+.layer {
+    position: fixed;
+    width: 640px;
+    height: 480px;
+    z-index: 1000;
+    background-color: white;
+    top: 50%;
+    left: 50%;
+    margin-top: -240px;
+    margin-left: -320px;
+    border-radius: 6px;
+}
+
+#layer-top-nav {
+    height: 30px;
+    width: 100%;
+    position: relative;
+    background-color: #2A324B;
+    overflow: hidden;
+}
+
+#layer-top-nav span {
+    display: inline-block;
+}
+
+#top-nav-title {
+    height: 25px;
+    position: relative;
+    line-height: 25px;
+    top: 2px;
+    left: 10px;
+    color: white;
+}
+
+.nav-cancel {
+    position: relative;
+    float: right;
+    width: 60px;
+    text-align: center;
+    height: 25px;
+    top: 6px;
+}
+
+#image-drop {
+    position: absolute;
+    width: 600px;
+    height: 350px;
+    border: 2px dashed #2A324B;
+    top: 50px;
+    left: 20px;
+    overflow: hidden;
+    column-width: 120px;
+    -moz-column-width: 120px;
+    -webkit-column-width: 120px;
+    column-count: 3;
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+}
+
+.drag-tips {
+    display: inline-block;
+    position: absolute;
+    width: 120px;
+    height: 25px;
+    left: 50%;
+    top: 50%;
+    margin-top: -12px;
+    margin-left: -60px;
+}
+
+.image-show img {
+    width: 130px;
+    height: 160px;
+}
+
+#upload {
+    position: absolute;
+    width: 600px;
+    height: 30px;
+    left: 50%;
+    top: 420px;
+    margin-left: -300px;
+}
+
+#btn-upload {
+    position: absolute;
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: white;
+    background-color: #2A324B;
+    right: 30px;
+    border-radius: 3px;
 }

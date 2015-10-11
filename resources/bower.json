@@ -27,6 +27,7 @@
     "d3": "~3.5.6",
     "jquery": "~2.1.4",
     "restangular": "~1.5.1",
-    "unslider": "~1.0.0"
+    "unslider": "~1.0.0",
+    "angular-websocket": "~1.0.14"
   }
 }

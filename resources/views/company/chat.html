@@ -6,25 +6,29 @@
             <div id="chat-title">
                 <div data-uid="{{data.session}}" id="title">
                     <span>
-                            <a href="" title="">
-                            {{data.companyname}}，欢迎您进行业务洽谈</a>
-                        </span>
+                        <a href="" title="" >
+                            <span id="user-tips">{{data.companyname}}</span> ,欢迎您进行业务
+                    </a>
+                    </span>
                 </div>
                 <div id="show-hidden">
-                    <span> 
-                            <a href="javascript:void(0)" title="">隐藏业务洽谈信息</a>
-                        </span>
+                    <span>
+                    <a href="javascript:void(0)" title="" ng-switch on="chat.showToList" ng-click="chat.showClick()">
+                    <i ng-switch-when="hide">隐藏</i>
+                    <i ng-switch-when="show">显示</i>
+                    业务洽谈信息</a>
+                    </span>
                 </div>
             </div>
-            <div id="to-list">
+            <div id="to-list" ng-show="chat.showToList == 'hide'">
                 <ul>
                     <li>
                         <span class="to-one" ng-repeat="list in data.friendList track by $index">
                             <span class="name">{{list.username}}</span>
                         <span class="connect-btn">
                                 <a href="javascript:void(0)" 
-                                   data-form="{{list.email}}"
-                                   data-nickname="{{list.username}}">联系</a>
+                                   data-from="{{list.email}}"
+                                   data-nickname="{{list.username}}" ng-click="chat.chooseTo(event)">联系</a>
                             </span>
                         </span>
                     </li>
@@ -41,6 +45,10 @@
                 <div id="current-list">
                     <div id="to">
                         <ul id="list-show">
+                            <li ng-repeat="friend in chat.chatList track by $index" ng-class="{newcoming:chat.index == {{$index}}}">
+                                <span class="tips" data-id="{{friend.id}}" data-index="{{$index}}" ng-click="chat.switchTo(event)">{{friend.nickname}}</span>
+                                <span data-id="{{friend.id}}" class="close icon-close" ng-click="chat.delTo(event)"></span>
+                            </li>
                         </ul>
                     </div>
                     <div id="historty">

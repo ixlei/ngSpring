@@ -6,10 +6,6 @@ comCtrl.controller('financeController', function($scope, data) {
     $scope.publish = data.data;
 });
 
-comCtrl.controller('pubController', function($scope) {
-
-});
-
 comCtrl.controller('raisedbondsController', function($scope, data) {
     $scope.bond = data.data;
 });
@@ -39,6 +35,51 @@ comCtrl.controller('debtController', function($scope, corService, $routeParams) 
     });
 });
 
-comCtrl.controller('chatController', function($scope, data) {
-	console.log(data)
+comCtrl.controller('chatController', function($scope, chatService) {
+    chatService.getFriend().then(function(res) {
+        $scope.data = res.data;
+    }, function(err) {
+
+    });
+});
+
+comCtrl.controller('scrollController', function($scope) {
+    $scope.parent = {
+        height: 240,
+        distance: 4,
+        scrollHeight: function() {
+            return this.height - this.height % this.distance;
+        }
+    };
+    $scope.speedUp = 80;
+});
+
+comCtrl.controller('ipublishController', function($scope, data) {
+    $scope.data = data.data;
+    $scope.pub = {
+        layer: false,
+        pubLayer: function(e) {
+            this.layer = true;
+        },
+        hasChoose: []
+    };
+
+    $scope.$on('cancel', function() {
+        $scope.pub.layer = false;
+    });
+});
+
+comCtrl.controller('pubController', function($scope) {
+    $scope.toPub = {
+        dragTips: true,
+        fileRead: false,
+        reason: '',
+        files: [],
+        cancel: function(e) {
+            $scope.$emit('cancel');
+        },
+        result: []
+    };
+
+
 });

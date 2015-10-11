@@ -111,7 +111,34 @@ comDirective.directive('scrollDirective', function($interval, $timeout) {
             iElement.bind('mouseout', function($event) {
                 scroll();
             });
+        }
+    };
+});
 
+comDirective.directive('dragDirective', function(fileReadService, $log, $q) {
+    return {
+        restrict: 'A',
+        link: function(scope, iElement, iAttrs) {
+            iElement.bind('drop', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                scope.$apply(function() {
+                    scope.toPub.dragTips = false;
+                    scope.toPub.files = e.dataTransfer.files;
+                });
+
+                fileReadService.fileRead(scope.toPub.files).then(function(result) {
+                    scope.toPub.result = result;
+                }, function(err) {
+                    scope.toPub.fileRead = true;
+                    scope.toPub.reason = '只接受图片上传';
+                });
+            });
+            iElement.bind('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            });
         }
 
     };

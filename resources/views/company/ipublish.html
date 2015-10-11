@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/stylesheets/ipubish.css">
+<link rel="stylesheet" href="/stylesheets/font.css">
 <div id="mainContainer">
     <div>
         <div id="sidebarContainer">
@@ -82,9 +83,27 @@
             <p></p>
             <p class="title">公司相册</p>
             <div id="albumContainer"></div>
-            <div id="publishButton">发布更多消息
-            </div>
-            <div id="page">
+            <div id="pubBtn" ng-click="pub.pubLayer()">发布更多消息</div>
+            <div class="layer" ng-if="pub.layer" ng-controller="pubController">
+                <div id="layer-top-nav">
+                    <span id="top-nav-title">发布更多消息</span>
+                    <span class="icon-pub-cancel nav-cancel" ng-click="toPub.cancel()"></span>
+                </div>
+                <div id="image-drop" drag-directive>
+                    <div ng-repeat="file in toPub.result track by $index" class="image">
+                        <div class="image-show">
+                            <img src="{{file}}">
+                        </div>
+                        <div class="image-choose">
+                            <input type="checkbox" name="">
+                        </div>
+                    </div>
+                    <span class="drag-tips" ng-if="toPub.dragTips">图片拖入上传,最多上传9张</span>
+                    <span class="drag-tips" ng-if="toPub.fileRead">{{toPub.reason}}</span>
+                </div>
+                <div id="upload">
+                    <span id="btn-upload">发送</span>
+                </div>
             </div>
         </div>
     </div>

@@ -90,3 +90,41 @@ comService.factory('ipubService', function($http) {
 
     return pub;
 });
+
+comService.factory('fileReadService', ['$q', function($q) {
+    var service = {
+        fileRead: function(files) {
+            var type = '',
+                result = [],
+                promise = [];
+
+            for (var i = 0; i < files.length; i++) {
+                var reader = new FileReader(),
+                    d = $q.defer();
+
+                promise.push(d.promise);
+                reader.readAsDataURL(files[i]);
+
+                (function(d) {
+                    reader.onload = function() {
+                        d.resolve(this.result);
+                    };
+                })(d)
+
+
+            }
+            return $q.all(promise);
+        }
+    };
+
+    return service;
+}]);
+
+comService.factory('imageUploadService', ['$http', function($http) {
+    var service = {
+        upload: function() {
+            var url = '/ngSpring/company/photoUpload';
+
+        }
+    }
+}]);

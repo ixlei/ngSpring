@@ -3,6 +3,7 @@ var investorApp = angular.module('investorApp', ['ngRoute',
     'app.controller.investor',
     'app.directive.investor',
     'app.service.investor'
+
 ]);
 
 investorApp.run(function($rootScope, authService, $log, $location, $window) {
@@ -96,7 +97,8 @@ investorApp.config(function($routeProvider) {
     });
 
     $routeProvider.when('/resavation', {
-        templateUrl: '/views/investor/resavation.html'
+        templateUrl: '/views/investor/resavation.html',
+        controller: 'resavationController'
     });
 
     $routeProvider.when('/historyInquiry', {

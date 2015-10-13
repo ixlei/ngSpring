@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href="/stylesheets/logined-invest-index.css">
-<div id="main" ng-controller="indexController">
+<link rel="stylesheet" type="text/css" href="/stylesheets/busiess-index.css">
+<div id="main">
     <div id="content">
         <div class="banner" id="first-glance">
             <a href="#" class="unslider-arrow next">
@@ -8,23 +8,7 @@
             <a href="#" class="unslider-arrow next">
                 <img src="/images/btn-next.png" alt="" />
             </a>
-            <ul>
-                <li style="background-image:url(/images/banner1.jpg)">
-                </li>
-                <li style="background-image:url(/images/banner2.png)">
-                </li>
-                <li style="background-image:url(/images/banner3.png)">
-                </li>
-            </ul>
-        </div>
-        <div class="banner" id="second-glance">
-            <a href="#" class="unslider-arrow next">
-                <img src="/images/btn-pre.png" alt="" />
-            </a>
-            <a href="#" class="unslider-arrow next">
-                <img src="/images/btn-next.png" alt="" />
-            </a>
-            <ul>
+            <ul unslider-directive width="820" speed="30" delay="2000">
                 <li style="background-image:url(/images/banner1.jpg)">
                 </li>
                 <li style="background-image:url(/images/banner2.png)">
@@ -35,48 +19,49 @@
         </div>
         <div id="invest-center">
             <div id="inv-title">
-                <p id="inv-title">推荐行业</p>
+                <p id="inv-title">推荐投资人</p>
             </div>
             <div id="invest-list">
                 <div id="left-banner">
-                    <p>行业一</p>
+                    <p>知名投资人</p>
                     <div class="banner" id="site-banner-l">
-                        <ul>
-                            <li style="background-image:url(/images/touzizhe1.png)">
+                        <ul unslider-directive width="369" speed="30" delay="2000">
                             </li>
-                            <li style="background-image:url(/images/touzizhe2.png)">
+                            <li style="background-image:url(/images/company1.png)">
+                            </li>
+                            <li style="background-image:url(/images/company2.png)">
                             </li>
                         </ul>
                     </div>
                     <div class="invest-more">
-                        <span><a href="/springmvc/investor/investModel" title="">查看更多行业>></a></span>
+                        <span><a href="" title="">查看更多投资人>></a></span>
                     </div>
                 </div>
                 <div id="right-banner">
-                    <p>行业二</p>
+                    <p>新晋投资人</p>
                     <div class="banner" id="site-banner-r">
-                        <ul>
-                            <li style="background-image:url(/images/touzizhe3.png)">
+                        <ul unslider-directive width="369" speed="30" delay="2000">
+                            <li style="background-image:url(/images/company3.png)">
                             </li>
-                            <li style="background-image:url(/images/touzizhe4.png)">
+                            <li style="background-image:url(/images/company4.png)">
                             </li>
                         </ul>
                     </div>
                     <div class="invest-more">
-                        <span><a href="/springmvc/investor/investModel" title="">查看更多行业>></a></span>
+                        <span><a href="" title="">查看更多投资人>></a></span>
                     </div>
                 </div>
             </div>
         </div>
-        <div id="news" ng-controller="scrollController">
-            <p id="zixun"><a href="/springmvc/investor/consulting">资讯</a></p>
+        <div id="news">
+            <p id="zixun">资讯</p>
             <div id="news-area">
                 <ul>
                     <li>
                         <div class="title-nav">
                             <span>政策资讯</span>
                             <span class="more">
-                                    <a href="/springmvc/investor/infoPolicy" title="">更多</a>
+                                    <a href="" title="">更多</a>
                                 </span>
                         </div>
                         <div id="policy-item" scroll-directive>
@@ -162,7 +147,7 @@
                         <div class="title-nav">
                             <span>市场资讯</span>
                             <span class="more">
-                                    <a href="/springmvc/investor/infoMarket" title="">更多</a>
+                                    <a href="/more" title="">更多</a>
                                 </span>
                         </div>
                         <div id="market-item" scroll-directive>
@@ -231,10 +216,6 @@
                                 </p>
                                 <p>
                                     <a title="红蜻蜓等6只新股周一上市定位分析" href="_target">红蜻蜓等6只新股周一上市定位分析
-                                        </a>
-                                </p>
-                                <p>
-                                    <a title="赛升药业等3只新股周三申购指南 顶格需83.4万元" href="_target">赛升药业等3只新股周三申购指南 顶格需83.4万元 
                                         </a>
                                 </p>
                             </div>

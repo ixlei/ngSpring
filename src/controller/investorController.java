@@ -249,13 +249,15 @@ public class investorController {
 	}
 
 	@RequestMapping("/resourceAsset")
-	public String getResourceAsset(HttpServletRequest req, Model model) {
+	@ResponseBody
+	public Object getResourceAsset(HttpServletRequest req) {
+		Map<String, Object> model = new HashMap<String, Object>();
 		HttpSession session = req.getSession();
 		String sessionId = (String) session.getAttribute("citiuser");
 		String email = sessionId.split("=")[1];
 		List<Object> user = newuser.getInvestorAll(email);
-		model.addAttribute("investor", user);
-		return "investor/personal_center_assets_management";
+		model.put("user", user);
+		return model;
 	}
 
 	@RequestMapping("/inews")

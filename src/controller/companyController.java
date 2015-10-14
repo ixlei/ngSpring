@@ -1,8 +1,10 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +18,8 @@ import model.debt;
 import model.privateDebt;
 import model.privateEquity;
 import model.stock;
-
+import model.photoUpload;
+import org.apache.commons.io.FileUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -24,11 +27,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.socket.TextMessage;
 
 import dao.companyuserDao;
 import dao.investorDao;
+import dao.photoDao;
 import dao.privateDebtDao;
 import dao.privateEquityDao;
 
@@ -49,6 +55,8 @@ public class companyController {
 			.getBean("privateDebt");
 
 	private investorDao investorD = (investorDao) context.getBean("investor");
+
+	private photoDao photoUpload = (photoDao) context.getBean("photos");
 
 	@RequestMapping({ "/", "/index" })
 	public String getIndex(Map<String, Integer> model) {
@@ -562,6 +570,56 @@ public class companyController {
 
 		model.put("debt", d);
 		return model;
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/photoUpload", method = RequestMethod.POST)
+	public Object postPhotos(
+			HttpServletRequest req,
+			@RequestParam(value = "image", required = false) MultipartFile[] image) {
+		Map<String, Object> model = new HashMap<String, Object>();
+		HttpSession session = req.getSession();
+		String sessionId = (String) session.getAttribute("citiuser");
+		String email = sessionId.split("=")[1];
+		ArrayList<photoUpload> photoList = new ArrayList<photoUpload>();
+
+		for (int i = 0; i < image.length; i++) {
+			photoUpload photo = new photoUpload();
+			String originalImageName = image[i].getOriginalFilename();
+			Date now = new Date();
+			int subIndex = originalImageName.lastIndexOf(".");
+			String imageType = originalImageName.substring(subIndex);
+			String fileName = now.getTime() + imageType;
+			this.saveImage(fileName, image[i]);
+			photo.setCustomer(email);
+			photo.setImageName(fileName);
+			photoList.add(photo);
+		}
+
+		try {
+			photoUpload.insertPhoto(photoList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.put("res", "error");
+			return model;
+		}
+
+		model.put("res", "success");
+		return model;
+
+	}
+
+	public void saveImage(String fileName, MultipartFile image) {
+		try {
+			File file = new File(
+					"D:/newJava/ngSpring/resources/companyUploadImage/"
+							+ fileName);
+			FileUtils.writeByteArrayToFile(file, image.getBytes());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("error");
+		}
 	}
 
 }

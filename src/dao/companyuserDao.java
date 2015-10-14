@@ -176,6 +176,41 @@ public class companyuserDao {
 				});
 	}
 
+	public companyuser getIpub(String email) {
+		String sql = "select companyName, createTime, registerAddress, registerCapital, workField,"
+				+ "phoneNumber, foreignInstitutions, branchFactory, employeesNum, subsidiary, comapnyArea,"
+				+ "technologyAdvantage, productAdvantage, marketAdvantage, productService from companyuser "
+				+ "where email = ?";
+		return jdbcTemplate.queryForObject(sql,
+				new ParameterizedRowMapper<companyuser>() {
+
+					@Override
+					public companyuser mapRow(ResultSet rs, int rowNum)
+							throws SQLException {
+						companyuser user = new companyuser();
+						user.setCompanyName(rs.getString(1));
+						user.setCreateTime(rs.getString(2));
+						user.setRegisterAddress(rs.getString(3));
+						user.setRegisterCapital(Integer.parseInt(rs
+								.getString(4)));
+						user.setWorkField(rs.getString(5));
+						user.setPhoneNumber(rs.getString(6));
+						user.setforeignInstitutions(rs.getString(7));
+						user.setbranchFactory(rs.getString(8));
+						user.setemployeesNum(Integer.parseInt(rs.getString(9)));
+						user.setsubsidiary(rs.getString(10));
+						user.setcomapnyArea(Integer.parseInt(rs.getString(11)));
+						user.settechnologyAdvantage(rs.getString(12));
+						user.setproductAdvantage(rs.getString(13));
+						user.setmarketAdvantage(rs.getString(14));
+						user.setproductService(rs.getString(15));
+						return user;
+					}
+
+				}, email);
+
+	}
+
 	public ArrayList<corporateModel> getCorporateModel() {
 		String sql = "select id, companyName, registerAddress, investmentMin, investmentMax, productType, moneyType,"
 				+ "username from stockbuy as s, investor as i where s.customer = i.email union all select id, companyName,"

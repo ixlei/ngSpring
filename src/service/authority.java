@@ -1,6 +1,8 @@
 package service;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,6 +14,8 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONObject;
 
 @WebFilter(filterName = "authority")
 public class authority implements Filter {
@@ -33,7 +37,7 @@ public class authority implements Filter {
 		HttpSession session = req.getSession(true);
 		String loginPath = fConfig.getInitParameter("login");
 		String servletPath = req.getServletPath();
-
+		System.out.println(servletPath);
 		if (servletPath.equals("/")) {
 			chain.doFilter(req, res);
 		} else {
@@ -54,6 +58,7 @@ public class authority implements Filter {
 						res.setHeader("Access-Control-Allow-Origin", "*");
 						chain.doFilter(request, res);
 					} else {
+						
 						req.getRequestDispatcher(loginPath).forward(req, res);
 					}
 				}

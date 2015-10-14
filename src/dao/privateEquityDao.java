@@ -18,7 +18,7 @@ public class privateEquityDao {
 	}
 	
 	public void insert(privateEquity customer) {
-		String sql = "insert into privateEquity (publishMonyMin, publishMoneyMax, publishFixedYesrs, publishFinsh, occupyPercentMin, "
+		String sql = "insert into privateequity (publishMoneyMin, publishMoneyMax, publishFixedYesrs, publishFinsh, occupyPercentMin, "
 				+ "occupyPercentMax, netAsset, exitWay, turnover, currentStage, netProfit, exitMinTime, investmentMinRequest, "
 				+ "bondsman, minAddto,  customer, time) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql, customer.getPubMoneyMin(), customer.getPubMoneyMax(), customer.getPubFixedYesrs(),

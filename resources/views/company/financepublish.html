@@ -2,7 +2,7 @@
 <div class="wrap">
     <div ng-include="'/views/company/finance-publish-sidenav.html'" scope="" onload="" class="nav"></div>
     <div class="main">
-        <form method="post" name="form">
+        <form method="post" name="form" ng-controller="pubController">
             <div class="basic_info">
                 <p class="tit">基本信息</p>
                 <div class="left fl">
@@ -46,7 +46,7 @@
                     </p>
                     <p>
                         项目所处阶段:
-                        <input class="stage" type="text" name="currentStage" nng-model="pub.currentStage">
+                        <input class="stage" type="text" name="currentStage" ng-model="pub.currentStage">
                     </p>
                     <p>
                         最短退出年限:
@@ -76,7 +76,7 @@
                     </p>
                     <p>
                         最低追加资金:
-                        <input type="text" class="add" name="minAddto" ng-model="pub.minAdd"> 万
+                        <input type="text" class="add" name="minAddto" ng-model="pub.minAddto"> 万
                     </p>
                 </div>
             </div>

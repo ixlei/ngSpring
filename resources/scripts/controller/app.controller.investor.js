@@ -1,4 +1,7 @@
-var invCtrl = angular.module('app.controller.investor', []);
+var invCtrl = angular.module('app.controller.investor', [
+    'app.service.investor',
+    'dateService'
+]);
 
 invCtrl.controller('mainController', function($scope, $log) {
     $scope.active = {
@@ -70,3 +73,71 @@ invCtrl.controller('postReleaseCtrl', function($scope) {
 invCtrl.controller('debtPostCtrl', function($scope) {
 
 });
+
+invCtrl.controller('modelController', function($scope, data, $log) {
+    $scope.isActive = {
+        index: 1
+    };
+    $scope.$emit('activeItem', $scope.isActive);
+    $scope.pro = data.pro;
+});
+
+invCtrl.controller('equityController', function($scope, $routeParams,
+    $log, investModelService) {
+    investModelService.getEquity({
+        pid: $routeParams.pid
+    }).then(function(res) {
+        $scope.equ = res.data.equ;
+    }, function(err) {
+
+    });
+});
+
+invCtrl.controller('debtDetailCtrl', function($scope, $routeParams,
+    investModelService, $log) {
+    investModelService.getDebtDetail($routeParams.pid).then(function(resp) {
+        $scope.debt = resp.data.debt;
+    }, function(err) {
+
+    });
+});
+
+invCtrl.controller('calendarController', function($scope, $log,
+    calendarService) {
+    var now = calendarService.getDate(),
+        nextMonth = calendarService.getNextMonth(),
+        nowCal = calendarService.getDateTable(now),
+        nextCal = calendarService.getDateTable(nextMonth);
+
+    $scope.calender = {
+        calendarService: calendarService,
+        nowCal: {
+            year: now.year,
+            month: now.month,
+            data: nowCal
+        },
+        nextCal: {
+            year: nextMonth.year,
+            month: nextMonth.month,
+            data: nextCal
+        },
+        selectTime: ''
+    };
+
+});
+
+invCtrl.controller('resavationController', function($scope) {
+
+});
+
+invCtrl.controller('infoCenterController', ['$scope', function($scope) {
+    $scope.$emit('activeItem', {
+        index: 2
+    });
+}]);
+
+invCtrl.controller('situationController', ['$scope', function($scope) {
+    $scope.$emit('activeItem', {
+        index: 3
+    });
+}])

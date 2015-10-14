@@ -1,7 +1,8 @@
 angular.module('customerApp', [
     'ngRoute',
     'app.controller.visitor',
-    'app.directive.visitior'
+    'app.directive.visitior',
+    'unslider'
 ]).
 config(function($routeProvider, $locationProvider, $httpProvider) {
     $httpProvider.defaults.withCredentials = true;

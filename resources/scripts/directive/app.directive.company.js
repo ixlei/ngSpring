@@ -143,3 +143,14 @@ comDirective.directive('dragDirective', function(fileReadService, $log, $q) {
 
     };
 });
+
+comDirective.directive('showToListDirective', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, iElement, iAttrs) {
+            iElement.bind('click', function(e) {
+                console.log(iAttrs);
+            });
+        }
+    }
+})

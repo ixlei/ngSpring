@@ -1,7 +1,6 @@
 @charset "utf-8";
-/* CSS Document */
-
-#main {
+#main,
+.banner ul {
     margin: 0;
     padding: 0;
 }
@@ -14,14 +13,9 @@
 
 #first-glance {
     height: 320px;
+    width: 820px;
 }
 
-#first-glance ul {
-    margin: 10px -40px;
-}
-
-#first-glance ul,
-#first-glance ul li,
 #main,
 #service-item {
     width: 100%;
@@ -49,12 +43,6 @@
 
 .banner a:nth-child(1) {
     left: 30px;
-}
-
-.banner ul li {
-    background: no-repeat;
-    background-size: 820px 320px;
-    float: left;
 }
 
 .banner a img {
@@ -126,6 +114,25 @@
 }
 
 #footer {
-	position:absolute;
-	bottom:0;
+    position: absolute;
+    bottom: 0;
+}
+
+.banner ul {
+    list-style: none;
+    overflow: hidden;
+    height: 100%;
+    width: 400%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.banner ul li {
+    position: relative;
+    float: left;
+    width: 25%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }

@@ -3,6 +3,17 @@ var comCtrl = angular.module('app.controller.company', [
     'ngCookies'
 ]);
 
+comCtrl.controller('mainController', ['$scope', function($scope) {
+    $scope.index = 0;
+    $scope.$on('activeItem', function(event, index) {
+        $scope.index = index;
+    });
+}]);
+
+comCtrl.controller('indexController', ['$scope', function($scope) {
+    $scope.$emit('activeItem', 0);
+}]);
+
 comCtrl.controller('financeController', function($scope, data) {
     $scope.publish = data.data;
 });
@@ -12,6 +23,7 @@ comCtrl.controller('raisedbondsController', function($scope, data) {
 });
 
 comCtrl.controller('corCtrl', function($scope, corService) {
+    $scope.$emit('activeItem', 1);
     corService.get().then(function(res) {
         $scope.cor = res.data.cor;
     }, function(err) {
@@ -80,8 +92,6 @@ comCtrl.controller('chatController', ['$scope', '$cookies', '$cookieStore',
                 e = event || window.event;
                 this.currentTo = e.target.dataset.id;
                 this.index = e.target.dataset.index;
-                console.log(e.target.dataset.index)
-                console.log(this.index)
             }
         }
     }
@@ -124,4 +134,12 @@ comCtrl.controller('pubController', ['$scope', function($scope) {
         },
         result: []
     };
+}]);
+
+comCtrl.controller('infoPublishController', ['$scope', function($scope) {
+    $scope.$emit('activeItem', 2);
+}]);
+
+comCtrl.controller('manageController', ['$scope', function($scope) {
+    $scope.$emit('activeItem', 3);
 }]);

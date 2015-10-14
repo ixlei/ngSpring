@@ -2,7 +2,8 @@ var comApp = angular.module('companyApp', [
     'ngRoute',
     'app.controller.company',
     'app.service.company',
-    'app.directive.company'
+    'app.directive.company',
+    'unslider'
 ]);
 
 comApp.run(function($rootScope, $log, $window, authService, $location) {
@@ -23,6 +24,7 @@ comApp.run(function($rootScope, $log, $window, authService, $location) {
 
 comApp.config(function($routeProvider, $locationProvider) {
     $routeProvider.when('/index', {
+        controller: 'indexController',
         templateUrl: '/views/company/index.html'
     });
 
@@ -45,16 +47,7 @@ comApp.config(function($routeProvider, $locationProvider) {
     });
 
     $routeProvider.when('/chat', {
-        templateUrl: '/views/company/chat.html',
-        cntroller: 'chatController',
-        resolve: {
-            data: function(chatService) {
-                return chatService.getFriend();
-                return p.success(function(res) {
-                    return res;
-                });
-            }
-        }
+        templateUrl: '/views/company/chat.html'
     });
 
     $routeProvider.when('/appliedCompany', {
@@ -121,14 +114,33 @@ comApp.config(function($routeProvider, $locationProvider) {
     });
 
     $routeProvider.when('/infoPublish', {
+        controller: 'infoPublishController',
         templateUrl: '/views/company/infoPublish.html'
     });
 
     $routeProvider.when('/ipublish', {
-        templateUrl: '/views/company/ipublish.html'
+        templateUrl: '/views/company/ipublish.html',
+        controller: 'ipublishController',
+        resolve: {
+            data: function(ipubService) {
+                var p = ipubService.get();
+                return p.success(function(res) {
+                    return res.data;
+                });
+            }
+        }
     });
 
     $routeProvider.when('/manage', {
+        controller: 'manageController',
         templateUrl: '/views/company/manage.html'
+    });
+
+    $routeProvider.when('/einquiryProtocol', {
+        templateUrl: '/views/company/einquiryProtocol.html'
+    });
+
+    $routeProvider.when('/finishedReservation', {
+        templateUrl: '/views/company/finishedReservation.html'
     });
 });

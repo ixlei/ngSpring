@@ -51,3 +51,9 @@
 .icon-iconfont-clear:before {
     content: "\e603";
 }
+
+.icon-pub-cancel:before {
+    content: "\e603";
+    font-size: 1.2em;
+    color: white;
+}

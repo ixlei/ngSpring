@@ -6,6 +6,10 @@
     height: 1231px;
 }
 
+#mainContainer a {
+    color: #643333;
+}
+
 #main_ {
     width: 820px;
     height: 1231px;
@@ -13,7 +17,6 @@
     border: 1px solid #cccccc;
     position: absolute;
     -moz-box-shadow: 1px 1px 5px #888888;
-    /* 老的 Firefox */
     box-shadow: 1px 1px 5px #888888;
 }
 

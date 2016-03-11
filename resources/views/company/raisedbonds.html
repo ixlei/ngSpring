@@ -1,0 +1,90 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/finacing-publish.css">
+<div class="wrap">
+    <div ng-include="'/views/company/finance-publish-sidenav.html'" scope="" onload="" class="nav"></div>
+    <div class="cmain">
+        <form method="post" name="form">
+            <div class="basic_info">
+                <p class="tit">基本信息</p>
+                <div class="left fl">
+                    <p>公司名称：<span>{{bond.companyName }}</span></p>
+                    <p>公司注册时间：<span>{{bond.createTime }}</span></p>
+                    <p>产品类型：<span>私募债</span></p>
+                </div>
+                <div class="right fr">
+                    <p>公司注册地区：<span>{{bond.registerAddress }}</span></p>
+                    <p>公司注册资本：<span>{{bond.registerCapital }}</span></p>
+                    <p>所属行业：<span>{{bond.workField }}</span></p>
+                </div>
+                <div class="buttom">
+                    <p>
+                        发行金额：
+                        <input type="text" name="publishMoneyMin" ng-model="pub.publishMoneyMin"> —
+                        <input type="text" name="publishMoneyMax" ng-model="pub.publishMoneyMax"> 万
+                    </p>
+                    <p>
+                        <label>发行年限：</label>
+                        <input type="text" id="year" name="publishFixedYesrs" ng-model="pub.publishFixedYears"> 年
+                    </p>
+                    <p>
+                        <label for="text">还本付息方式:</label>
+                        <textarea id="textarea" cols=50 rows=6 name="returnMoneyWay" ng-model="pub.returnMoneyWay">
+                        </textarea>
+                    </p>
+                    <p>
+                        <label for="text">发行完成:</label>
+                        <textarea id="textarea" cols=50 rows=6 name="publishFinsh" ng-model="pub.publishFinsh">
+                        </textarea>
+                    </p>
+                </div>
+            </div>
+            <div class="more_info">
+                <p class="tit">更多信息</p>
+                <div class="left fl">
+                    <p>
+                        可承担最高利息：
+                        <input class="por" type="text" name="occupyMaxInterestMin" ng-model="pub.occupyMaxInterestMin" /> —
+                        <input class="por" type="text" name="occupyMaxInterestMax" ng-model="pub.occupyMaxInterestMax" /> %
+                    </p>
+                    <p>
+                        年资金占用时长：
+                        <input class="exit" type="text" name="occupyTime" 
+                        ng-model="pub.occupyTime" />
+                    </p>
+                    <p>
+                        可提供风控:
+                        <select ng-model="pub.riskControllRequest">
+                            <option value="抵押">抵押</option>
+                            <option value="看书">看书</option>
+                            <option value="运动">运动</option>
+                            <option value="购物">购物</option>
+                        </select>
+                    </p>
+                    <p>
+                        担保方:
+                        <input class="ensure" type="text" name="bondsman" ng-model="pub.bondsman" />
+                    </p>
+                </div>
+                <div class="right right1 fl">
+                    <p>
+                        企业当前净资产:
+                        <input class="pro" type="text" name="netAsset" ng-model="pub.netAsset" /> 万
+                    </p>
+                    <p>
+                        去年营业额：
+                        <input class="trunover" type="text" name="turnover" ng-model="pub.turnover"> 万
+                    </p>
+                    <p>
+                        公司净利润：
+                        <input class="profits" type="text" name="netProfit" ng-model="pub.netProfit"> 万
+                    </p>
+                    <p>
+                        还款来源：
+                        <input type="text" class="threshold" name="returnSource" ng-model="pub.returnSource"> 万
+                    </p>
+                </div>
+            </div>
+            <input class="submit" type="button" value="发布" id="btn" 
+            raisedbond-directive/>
+        </form>
+    </div>
+</div>

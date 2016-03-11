@@ -124,7 +124,6 @@ comService.factory('imageUploadService', ['$http', function($http) {
     var service = {
         upload: function() {
             var url = '/ngSpring/company/photoUpload';
-
         }
     }
 }]);
